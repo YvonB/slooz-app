@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FullscreenActivity">
+
+    <TextView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:keepScreenOn="true"
+        android:text="X"
+        android:textColor="@android:color/holo_red_light"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginBottom="60dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/close_border"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"/>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/border_wrapper"
+        android:layout_marginLeft="3dp"/>
+
+
+</FrameLayout>
