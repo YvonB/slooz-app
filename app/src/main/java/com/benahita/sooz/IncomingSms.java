@@ -20,6 +20,7 @@ import static android.app.Notification.EXTRA_NOTIFICATION_ID;
 
 public class IncomingSms extends BroadcastReceiver {
 
+    private static final String ACTION_SNOOZ = "Action_Snooz";
     // Get the object of SmsManager
     final SmsManager sms = SmsManager.getDefault();
 
@@ -46,42 +47,30 @@ public class IncomingSms extends BroadcastReceiver {
                     Log.i("SmsReceiver", "senderNum: " + senderNum + "; message: " + message);
 
                     //*********************** Notification**********************
-
-                    // Create an explicit intent for an Activity in your app
-                    Intent fullScreenIntent = new Intent(context, FullscreenActivity.class);
-                    fullScreenIntent.setAction("Action snooz");
+                    int NOTIFICATION_ID = 1;
+                    String messageIntegral = "- Un message venant de : "+senderNum+".\n- Disant ceci: "+message+".";
+                    Intent snoozIntent = new Intent(context, FullscreenActivity.class);// Create an explicit intent for an Activity in your app
+                    snoozIntent.setAction(ACTION_SNOOZ);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        fullScreenIntent.putExtra(EXTRA_NOTIFICATION_ID, 0);
+                        snoozIntent.putExtra(EXTRA_NOTIFICATION_ID, 0);
                     }
-                    PendingIntent fullScreenPendingIntent = PendingIntent.getActivity(context, 0, fullScreenIntent, 0);
+                    PendingIntent snoozPendingIntent = PendingIntent.getActivity(context, 0, snoozIntent, 0);
                     createNotificationChannel(context); // pour Android v8.0 et plus
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
-                    builder.setSmallIcon(R.mipmap.ic_launcher);
-                    builder.setContentTitle("Snooz");
-                    builder.setContentText("Nouveau message de crédit entrant.");
                     builder.setPriority(NotificationCompat.PRIORITY_HIGH);
-                    // Définir l'intention qui se déclenchera lorsque l'utilisateur tapera sur la notification
-                    builder.setContentIntent(fullScreenPendingIntent);
-                    builder.addAction(R.drawable.ic_launcher_background, "Snooziava",
-                            fullScreenPendingIntent);
-                    builder.setAutoCancel(true);
-
+                    builder.setSmallIcon(R.mipmap.ic_launcher);
+                    builder.setContentTitle("Vous avez : ");
+                    builder.setStyle(new NotificationCompat.BigTextStyle().bigText(messageIntegral));
+                    builder.addAction(R.drawable.ic_launcher_background, "Snoozer immédiatement",
+                            snoozPendingIntent); // lorsque l'utilisateur tapera sur le btn snoozer
 
                     NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
-                    int NOTIFICATION_ID = 001;
                     notificationManagerCompat.notify(NOTIFICATION_ID, builder.build());
-
 
                     //*********************** Lancer l'appli ***************
                     Intent it = new Intent(context, FullscreenActivity.class);
                     it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(it);
-
-                    // ******************** Show Alert *********************
-                    int duration = Toast.LENGTH_LONG;
-                    Toast toast = Toast.makeText(context,
-                            "Num de l'envoyeur : " + senderNum + ", Contenu du mess : " + message, duration);
-                    toast.show();
 
                 } // end for loop
             } // bundle is null

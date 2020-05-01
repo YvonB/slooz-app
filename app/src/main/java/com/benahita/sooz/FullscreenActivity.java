@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -25,9 +26,11 @@ public class FullscreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen);
 
+        // slide
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(new CustomPagerAdapter(this));
 
+        // Premier ouverture de lapp
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         boolean firstStart = prefs.getBoolean("firstStart", true);
 
@@ -35,6 +38,16 @@ public class FullscreenActivity extends AppCompatActivity {
             firstStartMethode();
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        // Supprimer la notif sur le status bar
+        int NOTIFICATION_ID = 1;
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        notificationManagerCompat.cancel(NOTIFICATION_ID);
     }
 
     // Résultat de la demande d'autorisation faite au début de la demande
@@ -49,9 +62,8 @@ public class FullscreenActivity extends AppCompatActivity {
                 @Override
                 public void onPermissionGranted() {
                     if ( RuntimePermissionUtil.checkPermissonGranted(FullscreenActivity.this, receiveSmsPerm)) {
-                       // runInBackground();
-                       // readSMS();
-                        return;
+                       runInBackground();
+                       readSMS();
                     }
                 }
 
