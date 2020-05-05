@@ -1,4 +1,4 @@
-package com.benahita.sooz;
+package com.benahita.snooz;
 
 import android.content.Context;
 

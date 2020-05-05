@@ -1,4 +1,4 @@
-package com.benahita.sooz;
+package com.benahita.snooz;
 
 public enum ModelObject {
     FIRST(R.string.first, R.layout.view_first_slide),

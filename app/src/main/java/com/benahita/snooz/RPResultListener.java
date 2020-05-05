@@ -1,4 +1,4 @@
-package com.benahita.sooz;
+package com.benahita.snooz;
 
 interface RPResultListener {
     void onPermissionGranted();

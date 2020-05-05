@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FullscreenActivity">
+    tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/fullscreen_content"
+        android:id="@+id/activity_main_close_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:keepScreenOn="true"
@@ -22,7 +22,7 @@
         android:paddingBottom="5dp"/>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager"
+        android:id="@+id/activity_main_viewpager"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_gravity="center_vertical"

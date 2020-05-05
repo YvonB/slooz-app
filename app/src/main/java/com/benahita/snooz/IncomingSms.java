@@ -1,4 +1,4 @@
-package com.benahita.sooz;
+package com.benahita.snooz;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -49,7 +48,7 @@ public class IncomingSms extends BroadcastReceiver {
                     //*********************** Notification**********************
                     int NOTIFICATION_ID = 1;
                     String messageIntegral = "- Un message venant de : "+senderNum+".\n- Disant ceci: "+message+".";
-                    Intent snoozIntent = new Intent(context, FullscreenActivity.class);// Create an explicit intent for an Activity in your app
+                    Intent snoozIntent = new Intent(context, MainActivity.class);// Create an explicit intent for an Activity in your app
                     snoozIntent.setAction(ACTION_SNOOZ);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         snoozIntent.putExtra(EXTRA_NOTIFICATION_ID, 0);
@@ -59,7 +58,7 @@ public class IncomingSms extends BroadcastReceiver {
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
                     builder.setPriority(NotificationCompat.PRIORITY_HIGH);
                     builder.setSmallIcon(R.mipmap.ic_launcher);
-                    builder.setContentTitle("Vous avez : ");
+                    builder.setContentTitle("Jete un oeil sur ce que vous venez d'avoir ! ");
                     builder.setStyle(new NotificationCompat.BigTextStyle().bigText(messageIntegral));
                     builder.addAction(R.drawable.ic_launcher_background, "Snoozer immédiatement",
                             snoozPendingIntent); // lorsque l'utilisateur tapera sur le btn snoozer
@@ -68,7 +67,7 @@ public class IncomingSms extends BroadcastReceiver {
                     notificationManagerCompat.notify(NOTIFICATION_ID, builder.build());
 
                     //*********************** Lancer l'appli ***************
-                    Intent it = new Intent(context, FullscreenActivity.class);
+                    Intent it = new Intent(context, MainActivity.class);
                     it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(it);
 
@@ -85,8 +84,8 @@ public class IncomingSms extends BroadcastReceiver {
         // Créer le canal de notification, mais uniquement sur l'API 26+ car
         // la classe NotificationChannel est nouvelle et ne se trouve pas dans la bibliothèque de support
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Nom du Canal de notification";
-            String description = "Lorem ipsum dolor sit amet";
+            CharSequence name = "Snooz notification";
+            String description = "Notification à chaque message de crédit entrant";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);

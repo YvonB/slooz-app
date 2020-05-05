@@ -1,13 +1,11 @@
-package com.benahita.sooz;
+package com.benahita.snooz;
 
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
 
 public class MyService extends Service {
 
@@ -26,7 +24,7 @@ public class MyService extends Service {
     }
 
     /*private void startForeground() {
-        Intent notificationIntent = new Intent(this, FullscreenActivity.class);
+        Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
                 notificationIntent, 0);
         startForeground(NOTIF_ID, new NotificationCompat.Builder(this,

@@ -1,10 +1,8 @@
-package com.benahita.sooz;
+package com.benahita.snooz;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.viewpager.widget.ViewPager;
@@ -12,22 +10,19 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Toast;
 
-public class FullscreenActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
-    private static final String receiveSmsPerm = Manifest.permission.RECEIVE_SMS;
+    private static final String sreceiveSmsPerm = Manifest.permission.RECEIVE_SMS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fullscreen);
+        setContentView(R.layout.activity_main);
 
         // slide
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.activity_main_viewpager);
         viewPager.setAdapter(new CustomPagerAdapter(this));
 
         // Premier ouverture de lapp
@@ -40,10 +35,10 @@ public class FullscreenActivity extends AppCompatActivity {
 
     }
 
+    // user ferme lapp depuis le btn retour
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
         // Supprimer la notif sur le status bar
         int NOTIFICATION_ID = 1;
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
@@ -61,7 +56,7 @@ public class FullscreenActivity extends AppCompatActivity {
             RuntimePermissionUtil.onRequestPermissionsResult(grantResults, new RPResultListener() {
                 @Override
                 public void onPermissionGranted() {
-                    if ( RuntimePermissionUtil.checkPermissonGranted(FullscreenActivity.this, receiveSmsPerm)) {
+                    if ( RuntimePermissionUtil.checkPermissonGranted(MainActivity.this, sreceiveSmsPerm)) {
                        runInBackground();
                        readSMS();
                     }
@@ -69,7 +64,7 @@ public class FullscreenActivity extends AppCompatActivity {
 
                 @Override
                 public void onPermissionDenied() {
-                    Toast.makeText(FullscreenActivity.this, "L'aplication risque de ne pas fonctionner !", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "L'aplication risque de ne pas fonctionner !", Toast.LENGTH_LONG).show();
                 }
             });
         }
@@ -88,15 +83,15 @@ public class FullscreenActivity extends AppCompatActivity {
     }
 
     private void checkSmsPermision() {
-        boolean receiveSmsPermission = RuntimePermissionUtil.checkPermissonGranted(this, receiveSmsPerm);
+        boolean receiveSmsPermission = RuntimePermissionUtil.checkPermissonGranted(this, sreceiveSmsPerm);
 
         if (receiveSmsPermission) {
             runInBackground();
             readSMS();
         }else{
             RuntimePermissionUtil.requestPermission(
-                    FullscreenActivity.this,
-                    receiveSmsPerm,
+                    MainActivity.this,
+                    sreceiveSmsPerm,
                     100
             );
         }
@@ -107,9 +102,6 @@ public class FullscreenActivity extends AppCompatActivity {
     }
 
     public void readSMS(){
-        Toast.makeText(FullscreenActivity.this, "Hamaky SMS !", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Hamaky SMS !", Toast.LENGTH_LONG).show();
     }
-
-
-
 }

@@ -1,4 +1,4 @@
-package com.benahita.sooz;
+package com.benahita.snooz;
 
 /*
  * Copyright (C) 2016 Nishant Srivastava
