@@ -19,7 +19,11 @@
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
         android:paddingTop="5dp"
-        android:paddingBottom="5dp"/>
+        android:paddingBottom="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginEnd="10dp"
+        tools:ignore="RtlHardcoded" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/activity_main_viewpager"
@@ -27,7 +31,8 @@
         android:layout_height="75dp"
         android:layout_gravity="center_vertical"
         android:background="@drawable/border_wrapper"
-        android:layout_marginLeft="3dp"/>
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp" />
 
 
 </FrameLayout>
