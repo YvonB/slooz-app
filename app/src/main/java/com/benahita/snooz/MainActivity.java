@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String sreceiveSmsPerm = Manifest.permission.RECEIVE_SMS;
+    private static final String sReceiveSmsPerm = Manifest.permission.RECEIVE_SMS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             RuntimePermissionUtil.onRequestPermissionsResult(grantResults, new RPResultListener() {
                 @Override
                 public void onPermissionGranted() {
-                    if ( RuntimePermissionUtil.checkPermissonGranted(MainActivity.this, sreceiveSmsPerm)) {
+                    if ( RuntimePermissionUtil.checkPermissonGranted(MainActivity.this, sReceiveSmsPerm)) {
                        runInBackground();
                        readSMS();
                     }
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkSmsPermision() {
-        boolean receiveSmsPermission = RuntimePermissionUtil.checkPermissonGranted(this, sreceiveSmsPerm);
+        boolean receiveSmsPermission = RuntimePermissionUtil.checkPermissonGranted(this, sReceiveSmsPerm);
 
         if (receiveSmsPermission) {
             runInBackground();
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         }else{
             RuntimePermissionUtil.requestPermission(
                     MainActivity.this,
-                    sreceiveSmsPerm,
+                    sReceiveSmsPerm,
                     100
             );
         }
