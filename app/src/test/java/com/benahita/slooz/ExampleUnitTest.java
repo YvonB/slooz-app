@@ -1,4 +1,4 @@
-package com.benahita.snooz;
+package com.benahita.slooz;
 
 import org.junit.Test;
 

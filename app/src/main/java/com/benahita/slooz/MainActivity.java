@@ -1,4 +1,4 @@
-package com.benahita.snooz;
+package com.benahita.slooz;
 
 import android.Manifest;
 
@@ -39,10 +39,11 @@ public class MainActivity extends AppCompatActivity {
         TextView textViewClose = (TextView) findViewById(R.id.activity_main_close_btn);
 
         // =================================== slide ======================
-        ViewPager viewPager = (ViewPager) findViewById(R.id.activity_main_viewpager);
-        viewPager.setAdapter(new CustomPagerAdapter(this));
+        ViewPager viewPager = findViewById(R.id.activity_main_viewpager);
+        viewPager.setAdapter(new CustomPagerAdapter(getSupportFragmentManager()));
+
         sliderDotspanel = (LinearLayout) findViewById(R.id.activity_main_slider_dots); // Les dots
-        dotscount = new CustomPagerAdapter(this).getCount();
+        dotscount = new CustomPagerAdapter(getSupportFragmentManager()).getCount();
         dots = new ImageView[dotscount];
 
         for(int i = 0; i < dotscount; i++){
@@ -103,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
 
     // On simule le btn "retour" du telephone lorsque un user ferme Snooz
     private void closeSnooz() {

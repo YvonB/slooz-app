@@ -4,12 +4,23 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
 
-    <color name="black_overlay">#000000</color>
+    <color name="black_overlay">#80000000</color>
 
     <!-- BTNs -->
-    <color name="btn_1">#711D1D</color>
-    <color name="btn_2">#71441D</color>
-    <color name="btn_3">#449760</color>
-    <color name="btn_4">#40ACA7</color>
-    <color name="btn_5">#9223BC</color>
+    <color name="btn_1">#ff4500</color>
+    <color name="btn_2">#ff4500</color>
+    <color name="btn_3">#ff4500</color>
+    <color name="btn_4">#ff4500</color>
+    <color name="btn_5">#ff4500</color>
+
+    <color name="btn_6">#ff1493</color>
+    <color name="btn_7">#ff1493</color>
+    <color name="btn_8">#ff1493</color>
+    <color name="btn_9">#ff1493</color>
+    <color name="btn_10">#ff1493</color>
+
+    <!-- Contours -->
+    <color name="contour">#fff</color>
+
+    <color name="main_bg">#802F4F4F</color>
 </resources>

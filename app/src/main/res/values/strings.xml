@@ -1,8 +1,16 @@
 <resources>
-    <string name="app_name">snooz</string>
+    <string name="app_name">slooz</string>
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="first" />
     <string name="second" />
+
+    <string name="akama_un">Akama 1</string>
+    <string name="akama_trois">Akama 3</string>
+    <string name="akama_sept">Akama 7</string>
+    <string name="be_500">Be 500</string>
+    <string name="be_1000">Be 1000</string>
+
+    <string name="tsik_dimy">Tsik\' dimy</string>
 </resources>

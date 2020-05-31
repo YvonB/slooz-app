@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.benahita.snooz">
+    package="com.benahita.slooz">
 
     <!--uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/-->
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme"
         android:fullBackupContent="true">
 
-        <receiver android:name="com.benahita.snooz.IncomingSms"
+        <receiver android:name="com.benahita.slooz.IncomingSms"
             android:permission="android.permission.BROADCAST_SMS">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
@@ -26,7 +26,7 @@
         </receiver>
 
         <activity
-            android:name="com.benahita.snooz.MainActivity"
+            android:name="com.benahita.slooz.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:launchMode="singleInstance"
@@ -38,7 +38,7 @@
         </activity>
 
         <service
-            android:name="com.benahita.snooz.MyService"
+            android:name="com.benahita.slooz.MyService"
             android:enabled="true"
             android:exported="true"
             android:stopWithTask="false"
