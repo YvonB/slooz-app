@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/btn_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="75dp"
     android:orientation="horizontal"
     android:layout_gravity="center_vertical"
     android:paddingTop="8dp"
@@ -12,7 +12,7 @@
     android:layout_marginRight="5dp">
 
     <Button
-        android:id="@+id/view_first_slide_a_btn"
+        android:id="@+id/view_forth_slide_a_btn"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -20,67 +20,67 @@
         android:layout_marginRight="8dp"
         android:layout_weight="1"
         android:textColor="@android:color/white"
-        android:text="@string/akama_un"
-        android:background="@drawable/btn_1"
+        android:text="@string/mora_500"
+        android:background="@drawable/btn_16"
         tools:ignore="Suspicious0dp"
         android:textAlignment="center"
         android:textSize="10sp"/>
 
     <Button
-        android:id="@+id/view_first_slide_b_btn"
+        android:id="@+id/view_forth_slide_b_btn"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:layout_gravity="center"
         android:layout_marginRight="8dp"
         tools:ignore="Suspicious0dp"
-        android:text="@string/akama_trois"
+        android:text="@string/mora_one"
         android:textColor="@android:color/white"
         android:textAlignment="center"
-        android:background="@drawable/btn_2"
+        android:background="@drawable/btn_17"
         android:textSize="10sp"/>
 
     <Button
-        android:id="@+id/view_first_slide_c_btn"
+        android:id="@+id/view_forth_slide_c_btn"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginRight="8dp"
         android:layout_weight="1"
         android:textColor="@android:color/white"
-        android:text="@string/akama_sept"
+        android:text="@string/faceboobaka"
         tools:ignore="Suspicious0dp"
         android:textAlignment="center"
-        android:background="@drawable/btn_3"
-        android:textSize="10sp"/>
+        android:background="@drawable/btn_18"
+        android:textSize="8sp"/>
 
     <Button
-        android:id="@+id/view_first_slide_d_btn"
+        android:id="@+id/view_forth_slide_d_btn"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginRight="8dp"
         android:layout_weight="1"
         android:textColor="@android:color/white"
-        android:text="@string/be_500"
+        android:text="@string/net_one_week"
         tools:ignore="Suspicious0dp"
         android:textAlignment="center"
-        android:background="@drawable/btn_4"
-        android:textSize="10sp"/>
+        android:background="@drawable/btn_19"
+        android:textSize="8sp"/>
 
     <Button
-        android:id="@+id/view_first_slide_e_btn"
+        android:id="@+id/view_forth_slide_e_btn"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginRight="8dp"
         android:layout_weight="1"
         android:textColor="@android:color/white"
-        android:text="@string/be_1000"
+        android:text="@string/net_one_month"
         tools:ignore="Suspicious0dp"
         android:textAlignment="center"
-        android:background="@drawable/btn_5"
-        android:textSize="10sp"/>
+        android:background="@drawable/btn_20"
+        android:textSize="8sp"/>
 
 </LinearLayout>
 

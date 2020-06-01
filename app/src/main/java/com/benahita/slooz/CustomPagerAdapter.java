@@ -31,12 +31,16 @@ public class CustomPagerAdapter extends FragmentPagerAdapter {
                 return new ChildFragment1(); //ChildFragment1 at position 0
             case 1:
                 return new ChildFragment2(); //ChildFragment2 at position 1
+            case 2:
+                return new ChildFragment3(); //ChildFragment3 at position 2
+            case 3:
+                return new ChildFragment4(); //ChildFragment4 at position 3
         }
         return null; //does not happen
     }
 
     @Override
     public int getCount() {
-        return 2; //three fragments
+        return 4; //three fragments
     }
 }

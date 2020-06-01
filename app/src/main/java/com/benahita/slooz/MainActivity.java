@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         sliderDotspanel = (LinearLayout) findViewById(R.id.activity_main_slider_dots); // Les dots
         dotscount = new CustomPagerAdapter(getSupportFragmentManager()).getCount();
+
         dots = new ImageView[dotscount];
 
         for(int i = 0; i < dotscount; i++){

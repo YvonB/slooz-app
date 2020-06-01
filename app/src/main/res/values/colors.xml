@@ -19,8 +19,23 @@
     <color name="btn_9">#ff1493</color>
     <color name="btn_10">#ff1493</color>
 
+    <color name="btn_11">#ff0000</color>
+    <color name="btn_12">#ff0000</color>
+    <color name="btn_13">#ff0000</color>
+    <color name="btn_14">#ff0000</color>
+    <color name="btn_15">#ff0000</color>
+
+    <color name="btn_16">#006400</color>
+    <color name="btn_17">#006400</color>
+    <color name="btn_18">#006400</color>
+    <color name="btn_19">#006400</color>
+    <color name="btn_20">#006400</color>
+
     <!-- Contours -->
     <color name="contour">#fff</color>
+
+    <!-- Contours Telma-->
+    <color name="contour_telma">#ffff00</color>
 
     <color name="main_bg">#802F4F4F</color>
 </resources>

@@ -20,10 +20,11 @@
     android:layout_marginRight="8dp"
     android:layout_weight="1"
     android:textColor="@android:color/white"
-    android:text="A"
-    android:background="@drawable/btn_1"
+    android:text="@string/tsik_jiaby"
+    android:background="@drawable/btn_6"
     tools:ignore="Suspicious0dp"
-    android:textAlignment="center"/>
+    android:textAlignment="center"
+    android:textSize="10sp"/>
 
 <Button
     android:id="@+id/view_second_slide_b_btn"
@@ -33,10 +34,11 @@
     android:layout_gravity="center"
     android:layout_marginRight="8dp"
     tools:ignore="Suspicious0dp"
-    android:text="B"
+    android:text="@string/tsik_iray"
     android:textColor="@android:color/white"
     android:textAlignment="center"
-    android:background="@drawable/btn_2"/>
+    android:background="@drawable/btn_7"
+    android:textSize="10sp"/>
 
 <Button
     android:id="@+id/view_second_slide_c_btn"
@@ -46,10 +48,11 @@
     android:layout_marginRight="8dp"
     android:layout_weight="1"
     android:textColor="@android:color/white"
-    android:text="C"
+    android:text="@string/tsik_roa"
     tools:ignore="Suspicious0dp"
     android:textAlignment="center"
-    android:background="@drawable/btn_3"/>
+    android:background="@drawable/btn_8"
+    android:textSize="10sp"/>
 
 <Button
     android:id="@+id/view_second_slide_d_btn"
@@ -59,10 +62,11 @@
     android:layout_marginRight="8dp"
     android:layout_weight="1"
     android:textColor="@android:color/white"
-    android:text="D"
+    android:text="@string/tsik_dimy"
     tools:ignore="Suspicious0dp"
     android:textAlignment="center"
-    android:background="@drawable/btn_4"/>
+    android:background="@drawable/btn_9"
+    android:textSize="10sp"/>
 
 <Button
     android:id="@+id/view_second_slide_e_btn"
@@ -72,10 +76,11 @@
     android:layout_marginRight="8dp"
     android:layout_weight="1"
     android:textColor="@android:color/white"
-    android:text="E"
+    android:text="@string/tsik_max"
     tools:ignore="Suspicious0dp"
     android:textAlignment="center"
-    android:background="@drawable/btn_5"/>
+    android:background="@drawable/btn_10"
+    android:textSize="10sp"/>
 
 </LinearLayout>
 

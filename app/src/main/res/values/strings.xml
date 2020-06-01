@@ -12,5 +12,21 @@
     <string name="be_500">Be 500</string>
     <string name="be_1000">Be 1000</string>
 
-    <string name="tsik_dimy">Tsik\' dimy</string>
+    <string name="tsik_jiaby">Tsik\'\njiaby</string>
+    <string name="tsik_iray">Tsik\'\niray</string>
+    <string name="tsik_roa">Tsik\'\nroa</string>
+    <string name="tsik_dimy">Tsik\'\ndimy</string>
+    <string name="tsik_max">Tsik\'\nmax</string>
+
+    <string name="mlay_200">M\'Lay \n 200</string>
+    <string name="mlay_500">M\'Lay \n 500</string>
+    <string name="mlay_1000">M\'Lay \n 1000</string>
+    <string name="facebook_mlay">Facebook \n M\'Lay</string>
+    <string name="sms_mlay">SMS \n M\'Lay 1000Ar</string>
+
+    <string name="mora_500">M\'ora \n 500</string>
+    <string name="mora_one">M\'ora \n 1000</string>
+    <string name="faceboobaka">Face \nboobaka</string>
+    <string name="net_one_week">Net \n One Week</string>
+    <string name="net_one_month">Net \n One Week</string>
 </resources>
