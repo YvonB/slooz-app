@@ -38,6 +38,16 @@ public class MainActivity extends AppCompatActivity {
         // Btn close
         TextView textViewClose = (TextView) findViewById(R.id.activity_main_close_btn);
 
+        // Slogan mi derive tena
+        final TextView sloganAppTopTv = (TextView) findViewById(R.id.slogan_app_top_activity_main);
+        final TextView sloganAppBottomTv = (TextView) findViewById(R.id.slogan_app_bottom_activity_main);
+        sloganAppTopTv.postDelayed(new Runnable() {
+            public void run() {
+                sloganAppTopTv.setVisibility(View.GONE);
+                sloganAppBottomTv.setVisibility(View.GONE);
+            }
+        }, 4000);
+
         // =================================== slide ======================
         ViewPager viewPager = findViewById(R.id.activity_main_viewpager);
         viewPager.setAdapter(new CustomPagerAdapter(getSupportFragmentManager()));

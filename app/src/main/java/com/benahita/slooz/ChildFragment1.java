@@ -13,10 +13,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import java.util.Objects;
+
 
 /**
  * Created by yvon on 5/31/20.
@@ -44,6 +46,20 @@ public class ChildFragment1 extends Fragment {
                 startActivity(intent);
             }
         });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            buttonInFragment1.setTooltipText("Prix 100Ar TTC, 20Mo de Facebook, 5mn d'appel vers 3 numéros famille. Validité: 24h");
+        }else{
+            buttonInFragment1.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    TooltipCompat.setTooltipText(v, "Prix 100Ar TTC, 20Mo de Facebook, 5mn d'appel vers 3 numéros famille. Validité: 24h");
+
+                    return false;
+                }
+            });
+
+        }
 
         Button button2InFragment1 = rootView.findViewById(R.id.view_first_slide_b_btn);
         button2InFragment1.setOnClickListener(new View.OnClickListener() {

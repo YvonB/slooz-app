@@ -46,30 +46,32 @@ public class IncomingSms extends BroadcastReceiver {
                     Log.i("SmsReceiver", "senderNum: " + senderNum + "; message: " + message);
 
                     //*********************** Notification**********************
-                    int NOTIFICATION_ID = 1;
-                    String messageIntegral = "- Un message venant de : "+senderNum+".\n- Disant ceci: "+message+".";
-                    Intent snoozIntent = new Intent(context, MainActivity.class);// Create an explicit intent for an Activity in your app
-                    snoozIntent.setAction(ACTION_SNOOZ);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        snoozIntent.putExtra(EXTRA_NOTIFICATION_ID, 0);
+                    if(senderNum.equals("209") || senderNum.equals("2ToiAMoi")){
+                        int NOTIFICATION_ID = 1;
+                        String messageIntegral = "Sloozé pour pouvoir bénéficiera les offres de forfaits.";
+                        Intent snoozIntent = new Intent(context, MainActivity.class);// Create an explicit intent for an Activity in your app
+                        snoozIntent.setAction(ACTION_SNOOZ);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            snoozIntent.putExtra(EXTRA_NOTIFICATION_ID, 0);
+                        }
+                        PendingIntent snoozPendingIntent = PendingIntent.getActivity(context, 0, snoozIntent, 0);
+                        createNotificationChannel(context); // pour Android v8.0 et plus
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
+                        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
+                        builder.setSmallIcon(R.mipmap.ic_launcher);
+                        builder.setContentTitle("Vous venez de recharger votre solde.");
+                        builder.setStyle(new NotificationCompat.BigTextStyle().bigText(messageIntegral));
+                        builder.addAction(R.drawable.ic_launcher_background, "Sloozer",
+                                snoozPendingIntent); // lorsque l'utilisateur tapera sur le btn snoozer
+
+                        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
+                        notificationManagerCompat.notify(NOTIFICATION_ID, builder.build());
+
+                        //*********************** Lancer l'appli ***************
+                        Intent it = new Intent(context, MainActivity.class);
+                        it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(it);
                     }
-                    PendingIntent snoozPendingIntent = PendingIntent.getActivity(context, 0, snoozIntent, 0);
-                    createNotificationChannel(context); // pour Android v8.0 et plus
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
-                    builder.setPriority(NotificationCompat.PRIORITY_HIGH);
-                    builder.setSmallIcon(R.mipmap.ic_launcher);
-                    builder.setContentTitle("Jete un oeil sur ce que vous venez d'avoir ! ");
-                    builder.setStyle(new NotificationCompat.BigTextStyle().bigText(messageIntegral));
-                    builder.addAction(R.drawable.ic_launcher_background, "Snoozer immédiatement",
-                            snoozPendingIntent); // lorsque l'utilisateur tapera sur le btn snoozer
-
-                    NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
-                    notificationManagerCompat.notify(NOTIFICATION_ID, builder.build());
-
-                    //*********************** Lancer l'appli ***************
-                    Intent it = new Intent(context, MainActivity.class);
-                    it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(it);
 
                 } // end for loop
             } // bundle is null
