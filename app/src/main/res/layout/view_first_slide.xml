@@ -8,8 +8,7 @@
     android:layout_gravity="center_vertical"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp">
+    android:layout_marginRight="2pt">
 
     <Button
         android:id="@+id/view_first_slide_a_btn"
