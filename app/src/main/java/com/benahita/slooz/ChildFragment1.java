@@ -25,7 +25,7 @@ import java.util.Objects;
  */
 public class ChildFragment1 extends Fragment {
 
-    public final static String AKAMA_1 = "222*1";
+    public final static String STAY_IN = "222*33";
     public final static String AKAMA_3 = "222*3";
     public final static String AKAMA_7 = "222*7";
     public final static String BE_500 = "224*1*1";
@@ -42,18 +42,24 @@ public class ChildFragment1 extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+Uri.encode(AKAMA_1)));
+                intent.setData(Uri.parse("tel:"+Uri.encode(STAY_IN)));
                 startActivity(intent);
             }
         });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            buttonInFragment1.setTooltipText("Prix 100Ar TTC, 20Mo de Facebook, 5mn d'appel vers 3 numéros famille. Validité: 24h");
+            buttonInFragment1.setTooltipText("Prix 500Ar \n" +
+                    "1G (Facebook, Instagram et Messenger)  \n" +
+                    "30mn d’appel vers 3numéros famille de 21h à 6h\n" +
+                    "Validité : 3 Jours");
         }else{
             buttonInFragment1.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    TooltipCompat.setTooltipText(v, "Prix 100Ar TTC, 20Mo de Facebook, 5mn d'appel vers 3 numéros famille. Validité: 24h");
+                    TooltipCompat.setTooltipText(v, "Prix 500Ar \n" +
+                            "1G (Facebook, Instagram et Messenger)  \n" +
+                            "30mn d’appel vers 3numéros famille de 21h à 6h\n" +
+                            "Validité : 3 Jours");
 
                     return false;
                 }

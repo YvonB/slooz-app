@@ -6,7 +6,7 @@
     <string name="first" />
     <string name="second" />
 
-    <string name="akama_un">Akama 1</string>
+    <string name="stay_in">Stay\’in</string>
     <string name="akama_trois">Akama 3</string>
     <string name="akama_sept">Akama 7</string>
     <string name="be_500">Be 500</string>
@@ -18,10 +18,10 @@
     <string name="tsik_dimy">Tsik\'\ndimy</string>
     <string name="tsik_max">Tsik\'\nmax</string>
 
-    <string name="mlay_200">M\'Lay \n 200</string>
+    <string name="facebook_mix">Facebook \n Mix</string>
     <string name="mlay_500">M\'Lay \n 500</string>
     <string name="mlay_1000">M\'Lay \n 1000</string>
-    <string name="facebook_mlay">Facebook \n M\'Lay</string>
+    <string name="facebook_mlay">Boost</string>
     <string name="sms_mlay">SMS \n M\'Lay 1000Ar</string>
 
     <string name="mora_500">M\'ora \n 500</string>
@@ -29,6 +29,12 @@
     <string name="faceboobaka">Face \nboobaka</string>
     <string name="net_one_week">Net \n One Week</string>
     <string name="net_one_month">Net \n One Week</string>
+
+    <string name="extra_data">Extra \n data \n 10Go</string>
+    <string name="first_premium">First \n premium</string>
+    <string name="net_mlay_199000">Dépannage</string>
+    <string name="be_connect_10go">Be \n connect \n 10Go</string>
+    <string name="autres">Autres</string>
 
     <string name="slogan_app_top">origin</string>
     <string name="slogan_app_bottom">Algofy</string>

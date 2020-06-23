@@ -19,11 +19,11 @@
         android:layout_marginRight="8dp"
         android:layout_weight="1"
         android:textColor="@android:color/white"
-        android:text="@string/mlay_200"
+        android:text="@string/facebook_mix"
         android:background="@drawable/btn_11"
         tools:ignore="Suspicious0dp"
         android:textAlignment="center"
-        android:textSize="10sp"/>
+        android:textSize="8sp"/>
 
     <Button
         android:id="@+id/view_third_slide_b_btn"

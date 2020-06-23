@@ -2,6 +2,7 @@ package com.benahita.slooz;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
 
 /**
@@ -18,7 +20,7 @@ public class ChildFragment4 extends Fragment {
 
     public final static String MORA_500 = "#322*20#";
     public final static String MORA_1000 = "#322*21#";
-    public final static String FACEBOOBAK = "#322*65#";
+    public final static String FACEBOOBAKA = "#322*65#";
     public final static String NET_ONE_WEEK = "#322*70#";
     public final static String NET_ONE_MONTH = "#322*7#";
 
@@ -53,10 +55,30 @@ public class ChildFragment4 extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+Uri.encode(FACEBOOBAK)));
+                intent.setData(Uri.parse("tel:"+Uri.encode(FACEBOOBAKA)));
                 startActivity(intent);
             }
         });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            button3InFragment4.setTooltipText("Prix 500Ar TTC\n" +
+                    "1G Facebook\n" +
+                    "Consultation du solde bonus #359#\n" +
+                    "Validité : 7 Jours");
+        }else{
+            button3InFragment4.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    TooltipCompat.setTooltipText(v, "Prix 500Ar TTC\n" +
+                            "1G Facebook\n" +
+                            "Consultation du solde bonus #359#\n" +
+                            "Validité : 7 Jours");
+
+                    return false;
+                }
+            });
+
+        }
 
         Button button4InFragment4 = rootView.findViewById(R.id.view_forth_slide_d_btn);
         button4InFragment4.setOnClickListener(new View.OnClickListener() {
