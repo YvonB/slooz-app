@@ -3,11 +3,13 @@ package com.benahita.slooz;
 import android.Manifest;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -120,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
     // On simule le btn "retour" du telephone lorsque un user ferme Snooz
     private void closeSnooz() {
-        onBackPressed();
+        exitApp();
     }
 
     // user ferme lapp depuis le btn retour
@@ -191,5 +193,31 @@ public class MainActivity extends AppCompatActivity {
 
     public void readSMS(){
         Toast.makeText(MainActivity.this, "Hamaky SMS !", Toast.LENGTH_LONG).show();
+    }
+
+    // Methode permettant de Fermer l'application avec le bouton Exit
+    public void exitApp(){
+        // TODO Auto-generated method stub
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        alertDialogBuilder.setMessage(R.string.exit_dialog_title);
+        alertDialogBuilder.setPositiveButton(R.string.positive_btn_exit_dialog,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        
+                        Toast.makeText(MainActivity.this, "Merci vous êtes meilleur !", Toast.LENGTH_LONG).show();
+
+                        onBackPressed();
+                    }
+                });
+        alertDialogBuilder.setNegativeButton(R.string.negative_btn_exit_dialog,new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //restartActivity();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }
