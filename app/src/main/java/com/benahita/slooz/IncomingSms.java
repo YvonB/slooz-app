@@ -59,7 +59,7 @@ public class IncomingSms extends BroadcastReceiver {
                         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
                         builder.setPriority(NotificationCompat.PRIORITY_HIGH);
                         builder.setSmallIcon(R.mipmap.ic_launcher);
-                        builder.setContentTitle("Vous venez de recharger votre solde.");
+                        builder.setContentTitle("Bonjour ! Vous venez de recharger votre solde.");
                         builder.setStyle(new NotificationCompat.BigTextStyle().bigText(messageIntegral));
                         builder.addAction(R.drawable.ic_launcher_background, "Sloozer",
                                 snoozPendingIntent); // lorsque l'utilisateur tapera sur le btn snoozer

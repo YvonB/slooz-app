@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        
+
                         Toast.makeText(MainActivity.this, "Merci vous êtes meilleur !", Toast.LENGTH_LONG).show();
 
                         onBackPressed();
