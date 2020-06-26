@@ -45,6 +45,24 @@ public class ChildFragment6 extends Fragment {
             }
         });
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            buttonInFragment6.setTooltipText("Prix : 500 Ar\n" +
+                    "Instagram, Facebook, Messanger\n" +
+                    "Validité : 3 jrs\n");
+        }else{
+            buttonInFragment6.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    TooltipCompat.setTooltipText(v, "Prix : 500 Ar, Validité : 3 jours\n" +
+                            "Instagram, Facebook, Messanger\n" +
+                            "Appel 30min vers 3 numéro famille.\n");
+
+                    return false;
+                }
+            });
+
+        }
+
         Button button2InFragment6 = rootView.findViewById(R.id.view_seventh_slide_b_btn);
         button2InFragment6.setOnClickListener(new View.OnClickListener() {
             @Override
