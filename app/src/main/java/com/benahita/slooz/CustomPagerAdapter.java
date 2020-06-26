@@ -37,12 +37,14 @@ public class CustomPagerAdapter extends FragmentPagerAdapter {
                 return new ChildFragment4(); //ChildFragment4 at position 3
             case 4:
                 return new ChildFragment5(); //ChildFragment4 at position 4
+            case 5:
+                return new ChildFragment6(); //ChildFragment4 at position 5
         }
         return null; //does not happen
     }
 
     @Override
     public int getCount() {
-        return 5; //three fragments
+        return 6; //three fragments
     }
 }

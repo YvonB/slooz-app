@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/btn_container"
     android:layout_width="match_parent"
-    android:layout_height="75dp"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_gravity="center_vertical"
     android:paddingTop="8dp"
@@ -11,7 +11,7 @@
     android:layout_marginRight="2pt">
 
     <Button
-        android:id="@+id/view_third_slide_a_btn"
+        android:id="@+id/view_seventh_slide_a_btn"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -19,68 +19,66 @@
         android:layout_marginRight="8dp"
         android:layout_weight="1"
         android:textColor="@android:color/white"
-        android:text="@string/mlay_200"
-        android:background="@drawable/btn_11"
+        android:text="@string/stay_in"
+        android:background="@drawable/btn_1"
         tools:ignore="Suspicious0dp"
         android:textAlignment="center"
         android:textSize="8sp"/>
 
     <Button
-        android:id="@+id/view_third_slide_b_btn"
+        android:id="@+id/view_seventh_slide_b_btn"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:layout_gravity="center"
         android:layout_marginRight="8dp"
         tools:ignore="Suspicious0dp"
-        android:text="@string/mlay_500"
+        android:text="@string/fb_mix"
         android:textColor="@android:color/white"
-        android:textAlignment="center"
-        android:background="@drawable/btn_12"
-        android:textSize="8sp"/>
-
-    <Button
-        android:id="@+id/view_third_slide_c_btn"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_marginRight="8dp"
-        android:layout_weight="1"
-        android:textColor="@android:color/white"
-        android:text="@string/mlay_1000"
-        tools:ignore="Suspicious0dp"
-        android:textAlignment="center"
-        android:background="@drawable/btn_13"
-        android:textSize="8sp"/>
-
-    <Button
-        android:id="@+id/view_third_slide_d_btn"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_marginRight="8dp"
-        android:layout_weight="1"
-        android:textColor="@android:color/white"
-        android:text="@string/facebook_mlay"
-        tools:ignore="Suspicious0dp"
-        android:textAlignment="center"
-        android:background="@drawable/btn_14"
-        android:textSize="8sp"/>
-
-    <Button
-        android:id="@+id/view_third_slide_e_btn"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_marginRight="8dp"
-        android:layout_weight="1"
-        android:textColor="@android:color/white"
-        android:text="@string/sms_mlay"
-        tools:ignore="Suspicious0dp"
         android:textAlignment="center"
         android:background="@drawable/btn_15"
         android:textSize="8sp"/>
 
+    <Button
+        android:id="@+id/view_seventh_slide_c_btn"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginRight="8dp"
+        android:layout_weight="1"
+        android:textColor="@android:color/white"
+        android:text="@string/faceboobaka"
+        tools:ignore="Suspicious0dp"
+        android:textAlignment="center"
+        android:background="@drawable/btn_20"
+        android:textSize="8sp"/>
+
+    <Button
+        android:id="@+id/view_seventh_slide_d_btn"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginRight="8dp"
+        android:layout_weight="1"
+        android:textColor="@android:color/white"
+        android:text="@string/extra_sms"
+        tools:ignore="Suspicious0dp"
+        android:textAlignment="center"
+        android:background="@drawable/btn_6"
+        android:textSize="8sp"/>
+
+    <Button
+        android:id="@+id/view_seventh_slide_e_btn"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginRight="8dp"
+        android:layout_weight="1"
+        android:textColor="@android:color/white"
+        android:text="@string/mon_taxi"
+        tools:ignore="Suspicious0dp"
+        android:textAlignment="center"
+        android:background="@drawable/btn_25"
+        android:textSize="8sp"/>
+
 </LinearLayout>
-
-

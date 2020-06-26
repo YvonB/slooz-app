@@ -23,7 +23,7 @@
         android:background="@drawable/btn_1"
         tools:ignore="Suspicious0dp"
         android:textAlignment="center"
-        android:textSize="10sp"/>
+        android:textSize="8sp"/>
 
     <Button
         android:id="@+id/view_sixth_slide_b_btn"
@@ -37,7 +37,7 @@
         android:textColor="@android:color/white"
         android:textAlignment="center"
         android:background="@drawable/btn_2"
-        android:textSize="10sp"/>
+        android:textSize="8sp"/>
 
     <Button
         android:id="@+id/view_sixth_slide_c_btn"
@@ -51,7 +51,7 @@
         tools:ignore="Suspicious0dp"
         android:textAlignment="center"
         android:background="@drawable/btn_3"
-        android:textSize="10sp"/>
+        android:textSize="8sp"/>
 
     <Button
         android:id="@+id/view_sixth_slide_d_btn"
@@ -65,7 +65,7 @@
         tools:ignore="Suspicious0dp"
         android:textAlignment="center"
         android:background="@drawable/btn_4"
-        android:textSize="10sp"/>
+        android:textSize="8sp"/>
 
     <Button
         android:id="@+id/view_sixth_slide_e_btn"
@@ -79,6 +79,6 @@
         tools:ignore="Suspicious0dp"
         android:textAlignment="center"
         android:background="@drawable/btn_5"
-        android:textSize="10sp"/>
+        android:textSize="8sp"/>
 
 </LinearLayout>

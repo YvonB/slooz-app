@@ -23,7 +23,7 @@
         android:background="@drawable/btn_16"
         tools:ignore="Suspicious0dp"
         android:textAlignment="center"
-        android:textSize="10sp"/>
+        android:textSize="8sp"/>
 
     <Button
         android:id="@+id/view_forth_slide_b_btn"
@@ -37,7 +37,7 @@
         android:textColor="@android:color/white"
         android:textAlignment="center"
         android:background="@drawable/btn_17"
-        android:textSize="10sp"/>
+        android:textSize="8sp"/>
 
     <Button
         android:id="@+id/view_forth_slide_c_btn"
@@ -47,7 +47,7 @@
         android:layout_marginRight="8dp"
         android:layout_weight="1"
         android:textColor="@android:color/white"
-        android:text="@string/faceboobaka"
+        android:text="@string/yellow_100"
         tools:ignore="Suspicious0dp"
         android:textAlignment="center"
         android:background="@drawable/btn_18"
