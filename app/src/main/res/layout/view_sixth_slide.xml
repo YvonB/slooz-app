@@ -19,11 +19,11 @@
         android:layout_marginRight="8dp"
         android:layout_weight="1"
         android:textColor="@android:color/white"
-        android:text="@string/extra_data"
-        android:background="@drawable/btn_21"
+        android:text="@string/stay_in"
+        android:background="@drawable/btn_1"
         tools:ignore="Suspicious0dp"
         android:textAlignment="center"
-        android:textSize="8sp"/>
+        android:textSize="10sp"/>
 
     <Button
         android:id="@+id/view_sixth_slide_b_btn"
@@ -33,11 +33,11 @@
         android:layout_gravity="center"
         android:layout_marginRight="8dp"
         tools:ignore="Suspicious0dp"
-        android:text="@string/first_premium"
+        android:text="@string/akama_trois"
         android:textColor="@android:color/white"
         android:textAlignment="center"
-        android:background="@drawable/btn_22"
-        android:textSize="8sp"/>
+        android:background="@drawable/btn_2"
+        android:textSize="10sp"/>
 
     <Button
         android:id="@+id/view_sixth_slide_c_btn"
@@ -47,11 +47,11 @@
         android:layout_marginRight="8dp"
         android:layout_weight="1"
         android:textColor="@android:color/white"
-        android:text="@string/net_mlay_199000"
+        android:text="@string/akama_sept"
         tools:ignore="Suspicious0dp"
         android:textAlignment="center"
-        android:background="@drawable/btn_23"
-        android:textSize="8sp"/>
+        android:background="@drawable/btn_3"
+        android:textSize="10sp"/>
 
     <Button
         android:id="@+id/view_sixth_slide_d_btn"
@@ -61,11 +61,11 @@
         android:layout_marginRight="8dp"
         android:layout_weight="1"
         android:textColor="@android:color/white"
-        android:text="@string/be_connect_10go"
+        android:text="@string/be_500"
         tools:ignore="Suspicious0dp"
         android:textAlignment="center"
-        android:background="@drawable/btn_24"
-        android:textSize="8sp"/>
+        android:background="@drawable/btn_4"
+        android:textSize="10sp"/>
 
     <Button
         android:id="@+id/view_sixth_slide_e_btn"
@@ -75,12 +75,10 @@
         android:layout_marginRight="8dp"
         android:layout_weight="1"
         android:textColor="@android:color/white"
-        android:text="@string/autres"
+        android:text="@string/be_1000"
         tools:ignore="Suspicious0dp"
         android:textAlignment="center"
-        android:background="@drawable/btn_25"
-        android:textSize="8sp"/>
+        android:background="@drawable/btn_5"
+        android:textSize="10sp"/>
 
 </LinearLayout>
-
-

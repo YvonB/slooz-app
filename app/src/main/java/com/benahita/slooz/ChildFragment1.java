@@ -1,6 +1,7 @@
 package com.benahita.slooz;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -13,6 +14,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -25,11 +28,11 @@ import java.util.Objects;
  */
 public class ChildFragment1 extends Fragment {
 
-    public final static String STAY_IN = "222*33";
-    public final static String AKAMA_3 = "222*3";
-    public final static String AKAMA_7 = "222*7";
-    public final static String BE_500 = "224*1*1";
-    public final static String BE_1000 = "224*1*2";
+    public final static String EXTRA_DATA_10GO = "*340*109000#"; // Bip Mensuel
+    public final static String FIRST_PREMIUM = "#322*92#"; // Telma Mensuel
+    public final static String DEPANNAGE = "**436*2*4*SON NUMÉRO#"; // Airtel Mensuel
+    public final static String BE_CONNECT_10GO = "http://123.orange.mg/"; // Orange Mensuel
+    public final static String AUTRES = "https://www.algo-fy.com"; // Autre
 
     @Nullable
     @Override
@@ -37,29 +40,47 @@ public class ChildFragment1 extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.view_first_slide, container, false);
 
-        Button buttonInFragment1 = rootView.findViewById(R.id.view_first_slide_a_btn);
-        buttonInFragment1.setOnClickListener(new View.OnClickListener() {
+        Button buttonInFragment5 = rootView.findViewById(R.id.view_first_slide_a_btn);
+        buttonInFragment5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+Uri.encode(STAY_IN)));
+                intent.setData(Uri.parse("tel:"+Uri.encode(EXTRA_DATA_10GO)));
+                startActivity(intent);
+            }
+        });
+
+        Button button2InFragment5 = rootView.findViewById(R.id.view_first_slide_b_btn);
+        button2InFragment5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:"+Uri.encode(FIRST_PREMIUM)));
+                startActivity(intent);
+            }
+        });
+
+        Button button3InFragment5 = rootView.findViewById(R.id.view_first_slide_c_btn);
+        button3InFragment5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:"+Uri.encode(DEPANNAGE)));
                 startActivity(intent);
             }
         });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            buttonInFragment1.setTooltipText("Prix 500Ar \n" +
-                    "1G (Facebook, Instagram et Messenger)  \n" +
-                    "30mn d’appel vers 3numéros famille de 21h à 6h\n" +
-                    "Validité : 3 Jours");
+            button3InFragment5.setTooltipText("Besoin d’un dépannage ? \n" +
+                    "Sollicite\n" +
+                    "GRATUITEMENT ton proche grâce à Airtel Money\n");
         }else{
-            buttonInFragment1.setOnLongClickListener(new View.OnLongClickListener() {
+            button3InFragment5.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    TooltipCompat.setTooltipText(v, "Prix 500Ar \n" +
-                            "1G (Facebook, Instagram et Messenger)  \n" +
-                            "30mn d’appel vers 3numéros famille de 21h à 6h\n" +
-                            "Validité : 3 Jours");
+                    TooltipCompat.setTooltipText(v, "Besoin d’un dépannage ?\n" +
+                            "Sollicite\n" +
+                            "GRATUITEMENT ton proche grâce à Airtel Money\n");
 
                     return false;
                 }
@@ -67,62 +88,61 @@ public class ChildFragment1 extends Fragment {
 
         }
 
-        Button button2InFragment1 = rootView.findViewById(R.id.view_first_slide_b_btn);
-        button2InFragment1.setOnClickListener(new View.OnClickListener() {
+        Button button4InFragment5 = rootView.findViewById(R.id.view_first_slide_d_btn);
+        button4InFragment5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+Uri.encode(AKAMA_3)));
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("tel:"+Uri.encode(BE_CONNECT_10GO)));
                 startActivity(intent);
             }
         });
 
-        Button button3InFragment1 = rootView.findViewById(R.id.view_first_slide_c_btn);
-        button3InFragment1.setOnClickListener(new View.OnClickListener() {
+        Button button5InFragment5 = rootView.findViewById(R.id.view_first_slide_e_btn);
+        button5InFragment5.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+Uri.encode(AKAMA_7)));
-                startActivity(intent);
+                /*Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("tel:"+Uri.encode(AUTRES)));
+                startActivity(intent);*/
+                final String[] listItems = {"Pompier", "Police", "Jirama", "Pharamcie de garde"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
+                builder.setTitle("Autres services");
+
+                builder.setItems(listItems, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(Objects.requireNonNull(getContext()), "Position: " + which + " Value: " + listItems[which], Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
-        Button button4InFragment1 = rootView.findViewById(R.id.view_first_slide_d_btn);
-        button4InFragment1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_CALL);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            button5InFragment5.setTooltipText("Pompier \n" +
+                    "Police  \n" +
+                    "Jirama\n" +
+                    "Pharmacie de garde");
+        }else{
+            button5InFragment5.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    TooltipCompat.setTooltipText(v, "Pompier \n" +
+                            "Police \n" +
+                            "Jirama\n" +
+                            "Pharmacie de garde");
 
-                if(isPermissionGranted()){
-                    intent.setData(Uri.parse("tel:"+Uri.encode(BE_500)));
-                    startActivity(intent);
+                    return false;
                 }
-            }
-        });
+            });
 
-        Button button5InFragment1 = rootView.findViewById(R.id.view_first_slide_e_btn);
-        button5InFragment1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+Uri.encode(BE_1000)));
-                startActivity(intent);
-            }
-        });
+        }
 
         return rootView;
-    }
-
-    public boolean isPermissionGranted(){
-        if(Build.VERSION.SDK_INT >= 23){
-            if(ActivityCompat.checkSelfPermission(Objects.requireNonNull(getContext()), android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED){
-                return true;
-            }else{
-                ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{Manifest.permission.CALL_PHONE}, 1);
-                return false;
-            }
-        }else{
-            return true;
-        }
     }
 }
