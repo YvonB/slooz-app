@@ -1,5 +1,6 @@
 package com.benahita.slooz;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -8,10 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
+
+import java.util.Objects;
 
 /**
  * Created by yvon on 6/23/20.
@@ -90,11 +96,26 @@ public class ChildFragment5 extends Fragment {
 
         Button button5InFragment5 = rootView.findViewById(R.id.view_sixth_slide_e_btn);
         button5InFragment5.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
+                /*Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("tel:"+Uri.encode(AUTRES)));
-                startActivity(intent);
+                startActivity(intent);*/
+                final String[] listItems = {"Pompier", "Police", "Jirama", "Pharamcie de garde"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
+                builder.setTitle("Autres services");
+
+                builder.setItems(listItems, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(Objects.requireNonNull(getContext()), "Position: " + which + " Value: " + listItems[which], Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
