@@ -19,7 +19,7 @@
         android:layout_marginRight="8dp"
         android:layout_weight="1"
         android:textColor="@android:color/white"
-        android:text="@string/stay_in"
+        android:text="@string/akama_un"
         android:background="@drawable/btn_1"
         tools:ignore="Suspicious0dp"
         android:textAlignment="center"

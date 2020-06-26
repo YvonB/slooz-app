@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment;
  */
 public class ChildFragment3 extends Fragment {
 
-    public final static String FACEBOOK_MIX = "*100*200#";
+    public final static String MLAY_200 = "*100*200#";
     public final static String MLAY_500 = "*100*500#";
     public final static String MLAY_1000 = "*100*1000#";
     public final static String BOOST = "*100*100#";
@@ -35,39 +35,10 @@ public class ChildFragment3 extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+Uri.encode(FACEBOOK_MIX)));
+                intent.setData(Uri.parse("tel:"+Uri.encode(MLAY_200)));
                 startActivity(intent);
             }
         });
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            button1InFragment3.setTooltipText("Prix 500 Ar TTC\n" +
-                    "150 Mo de Facebook\n" +
-                    "Appel vers Airtel 1Ar/s\n" +
-                    "Appel vers autres opérateurs 3Ar/s\n" +
-                    "Sms vers Airtel 1Ar/sms\n" +
-                    "Sms vers autres opérateurs 5Ar/sms\n" +
-                    "Validité : 7 jours\n" +
-                    "Valable uniquement sur l’application mobile");
-        }else{
-            button1InFragment3.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    TooltipCompat.setTooltipText(v, "Prix 500 Ar TTC\n" +
-                            "150 Mo de Facebook\n" +
-                            "Appel vers Airtel 1Ar/s\n" +
-                            "Appel vers autres opérateurs 3Ar/s\n" +
-                            "Sms vers Airtel 1Ar/sms\n" +
-                            "Sms vers autres opérateurs 5Ar/sms\n" +
-                            "Validité : 7 jours\n" +
-                            "Valable uniquement sur l’application mobile");
-
-                    return false;
-                }
-            });
-
-        }
-
 
         Button button2InFragment3 = rootView.findViewById(R.id.view_third_slide_b_btn);
         button2InFragment3.setOnClickListener(new View.OnClickListener() {

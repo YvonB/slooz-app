@@ -26,7 +26,7 @@ import java.util.Objects;
  * Created by yvon on 6/23/20.
  */
 public class ChildFragment5 extends Fragment {
-    public final static String STAY_IN = "222*33";
+    public final static String AKAMA_1 = "222*1";
     public final static String AKAMA_3 = "222*3";
     public final static String AKAMA_7 = "222*7";
     public final static String BE_500 = "224*1*1";
@@ -43,24 +43,23 @@ public class ChildFragment5 extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+Uri.encode(STAY_IN)));
+                intent.setData(Uri.parse("tel:"+Uri.encode(AKAMA_1)));
                 startActivity(intent);
             }
         });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            buttonInFragment1.setTooltipText("Prix 500Ar \n" +
-                    "1G (Facebook, Instagram et Messenger)  \n" +
-                    "30mn d’appel vers 3numéros famille de 21h à 6h\n" +
-                    "Validité : 3 Jours");
+            buttonInFragment1.setTooltipText("Prix :100Ar, 20Mo, Validité:24heures\n" +
+                    "Facebook, Messenger \n" +
+                    "5min d’appel vers 3numéros famille de 21h à 6h");
         }else{
             buttonInFragment1.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    TooltipCompat.setTooltipText(v, "Prix 500Ar \n" +
-                            "1G (Facebook, Instagram et Messenger)  \n" +
+                    TooltipCompat.setTooltipText(v, "Prix :100Ar, 20Mo, Validité:24heures\n" +
+                            "Facebook, Messenger\n" +
                             "30mn d’appel vers 3numéros famille de 21h à 6h\n" +
-                            "Validité : 3 Jours");
+                            "5min d’appel vers 3numéros famille de 21h à 6h");
 
                     return false;
                 }
@@ -100,6 +99,24 @@ public class ChildFragment5 extends Fragment {
                 }
             }
         });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            button4InFragment1.setTooltipText("500Ar,5min,Validité:24h,25SMS\n" +
+                    "2min tout opérateur,Famille:5min \n" +
+                    "à toute heure,10min(22h à 6h).");
+        }else{
+            button4InFragment1.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    TooltipCompat.setTooltipText(v, "500Ar,5min,Validité:24h,25SMS\n" +
+                            "2min tout opérateur,Famille:5min\n" +
+                            "à toute heure,10min(22h à 6h).");
+
+                    return false;
+                }
+            });
+
+        }
 
         Button button5InFragment1 = rootView.findViewById(R.id.view_sixth_slide_e_btn);
         button5InFragment1.setOnClickListener(new View.OnClickListener() {
