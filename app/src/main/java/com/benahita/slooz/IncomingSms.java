@@ -46,31 +46,64 @@ public class IncomingSms extends BroadcastReceiver {
                     Log.i("SmsReceiver", "senderNum: " + senderNum + "; message: " + message);
 
                     //*********************** Notification**********************
-                    if(senderNum.equals("209") || senderNum.equals("2ToiAMoi")){
-                        int NOTIFICATION_ID = 1;
-                        String messageIntegral = "Sloozé pour pouvoir bénéficiera les offres de forfaits.";
-                        Intent snoozIntent = new Intent(context, MainActivity.class);// Create an explicit intent for an Activity in your app
-                        snoozIntent.setAction(ACTION_SNOOZ);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            snoozIntent.putExtra(EXTRA_NOTIFICATION_ID, 0);
+                    if(senderNum.equals("209") || senderNum.equals("2ToiAMoi") || senderNum.equals("e-recharge")){
+                        if(senderNum.equals("e-recharge")){
+                            String[] split = message.split("Ar");
+                            //String firstSubString = split[0];
+                            String valCredit = split[1];
+                            String notif_e_recharge = "Bonjour ! Vous venez de recharger "+ valCredit +"Ar votre solde.";
+
+                            int NOTIFICATION_ID = 1;
+                            String messageIntegral = "Sloozé pour pouvoir bénéficiera les offres de forfaits.";
+                            Intent snoozIntent = new Intent(context, MainActivity.class);// Create an explicit intent for an Activity in your app
+                            snoozIntent.setAction(ACTION_SNOOZ);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                snoozIntent.putExtra(EXTRA_NOTIFICATION_ID, 0);
+                            }
+                            PendingIntent snoozPendingIntent = PendingIntent.getActivity(context, 0, snoozIntent, 0);
+                            createNotificationChannel(context); // pour Android v8.0 et plus
+                            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
+                            builder.setPriority(NotificationCompat.PRIORITY_HIGH);
+                            builder.setSmallIcon(R.mipmap.ic_launcher);
+                            builder.setContentTitle(notif_e_recharge);
+                            builder.setStyle(new NotificationCompat.BigTextStyle().bigText(messageIntegral));
+                            builder.addAction(R.drawable.ic_launcher_background, "Sloozer",
+                                    snoozPendingIntent); // lorsque l'utilisateur tapera sur le btn snoozer
+
+                            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
+                            notificationManagerCompat.notify(NOTIFICATION_ID, builder.build());
+
+                            //*********************** Lancer l'appli ***************
+                            Intent it = new Intent(context, MainActivity.class);
+                            it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(it);
+                        }else {
+                            int NOTIFICATION_ID = 1;
+                            String messageTitle = "Bonjour!";
+                            String messageIntegral = "Vous venez de recharger 1000 Ar votre compte.\nSloozer pour pouvoir bénéficier les offres de forfaits.";
+                            Intent snoozIntent = new Intent(context, MainActivity.class);// Create an explicit intent for an Activity in your app
+                            snoozIntent.setAction(ACTION_SNOOZ);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                snoozIntent.putExtra(EXTRA_NOTIFICATION_ID, 0);
+                            }
+                            PendingIntent snoozPendingIntent = PendingIntent.getActivity(context, 0, snoozIntent, 0);
+                            createNotificationChannel(context); // pour Android v8.0 et plus
+                            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
+                            builder.setPriority(NotificationCompat.PRIORITY_HIGH);
+                            builder.setSmallIcon(R.mipmap.ic_launcher);
+                            builder.setContentTitle(messageTitle);
+                            builder.setStyle(new NotificationCompat.BigTextStyle().bigText(messageIntegral));
+                            builder.addAction(R.drawable.ic_launcher_background, "Sloozer",
+                                    snoozPendingIntent); // lorsque l'utilisateur tapera sur le btn snoozer
+
+                            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
+                            notificationManagerCompat.notify(NOTIFICATION_ID, builder.build());
+
+                            //*********************** Lancer l'appli ***************
+                            Intent it = new Intent(context, MainActivity.class);
+                            it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(it);
                         }
-                        PendingIntent snoozPendingIntent = PendingIntent.getActivity(context, 0, snoozIntent, 0);
-                        createNotificationChannel(context); // pour Android v8.0 et plus
-                        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
-                        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
-                        builder.setSmallIcon(R.mipmap.ic_launcher);
-                        builder.setContentTitle("Bonjour ! Vous venez de recharger votre solde.");
-                        builder.setStyle(new NotificationCompat.BigTextStyle().bigText(messageIntegral));
-                        builder.addAction(R.drawable.ic_launcher_background, "Sloozer",
-                                snoozPendingIntent); // lorsque l'utilisateur tapera sur le btn snoozer
-
-                        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
-                        notificationManagerCompat.notify(NOTIFICATION_ID, builder.build());
-
-                        //*********************** Lancer l'appli ***************
-                        Intent it = new Intent(context, MainActivity.class);
-                        it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(it);
                     }
 
                 } // end for loop
