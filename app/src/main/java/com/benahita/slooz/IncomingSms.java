@@ -80,7 +80,7 @@ public class IncomingSms extends BroadcastReceiver {
                         }else {
                             int NOTIFICATION_ID = 1;
                             String messageTitle = "Bonjour!";
-                            String messageIntegral = "Vous venez de recharger 1000 Ar votre compte.\nSloozer pour pouvoir bénéficier les offres de forfaits.";
+                            String messageIntegral = "Vous venez de recharger votre compte.\nSloozer pour pouvoir bénéficier les offres de forfaits.";
                             Intent snoozIntent = new Intent(context, MainActivity.class);// Create an explicit intent for an Activity in your app
                             snoozIntent.setAction(ACTION_SNOOZ);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
