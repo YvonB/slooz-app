@@ -9,8 +9,11 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -35,8 +38,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        runInBackground();
+
         setContentView(R.layout.activity_main);
+
+        runInBackground();
 
         // Btn close
         TextView textViewClose = (TextView) findViewById(R.id.activity_main_close_btn);
@@ -118,8 +123,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-
 
     // On simule le btn "retour" du telephone lorsque un user ferme Snooz
     private void closeSnooz() {
