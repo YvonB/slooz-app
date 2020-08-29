@@ -19,7 +19,14 @@
         android:theme="@style/AppTheme"
         android:fullBackupContent="true">
 
-        <receiver android:name="com.benahita.slooz.IncomingSms"
+        <receiver android:name="com.benahita.slooz.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.benahita.slooz.IncomingSmsReceiver"
             android:permission="android.permission.BROADCAST_SMS">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />

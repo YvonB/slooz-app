@@ -11,13 +11,14 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import static android.app.Notification.EXTRA_NOTIFICATION_ID;
 
-public class IncomingSms extends BroadcastReceiver {
+public class IncomingSmsReceiver extends BroadcastReceiver {
 
     private static final String ACTION_SNOOZ = "Action_Snooz";
     // Get the object of SmsManager
