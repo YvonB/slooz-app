@@ -5,17 +5,26 @@ import android.Manifest;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,7 +34,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String sReceiveSmsPerm = Manifest.permission.RECEIVE_SMS;
+    //private static final String sReceiveSmsPerm = Manifest.permission.RECEIVE_SMS;
 
     // Btn close
     private TextView mCloseBtn;
@@ -35,16 +44,27 @@ public class MainActivity extends AppCompatActivity {
     private int dotscount;
     private ImageView[] dots;
 
+    // Defining Permission codes.
+    // We can give any value
+    // but unique for each permission.
+    private static final int RECEIVE_SMS_CODE = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
-        runInBackground();
+        // Check permission for SMS
+        checkPermission(Manifest.permission.RECEIVE_SMS, RECEIVE_SMS_CODE);
+
+        // Suppr les notifs 2 et 3
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        notificationManagerCompat.cancel(2);
+        notificationManagerCompat.cancel(3);
+
 
         // Btn close
-        TextView textViewClose = (TextView) findViewById(R.id.activity_main_close_btn);
+        TextView mCloseBtn = (TextView) findViewById(R.id.activity_main_close_btn);
 
         // Slogan mi derive tena
         final TextView sloganAppTopTv = (TextView) findViewById(R.id.slogan_app_top_activity_main);
@@ -106,22 +126,62 @@ public class MainActivity extends AppCompatActivity {
         // ================================Fin slide ================================
 
 
-        // Premier ouverture de lapp
+        // First opening of the app
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         boolean firstStart = prefs.getBoolean("firstStart", true);
 
         if (firstStart) {
-            firstStartMethode();
+            firstStartMethod();
         }
 
-        // On clique sur close
-        textViewClose.setOnClickListener( new View.OnClickListener(){
+        // Click on close
+        mCloseBtn.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                closeSnooz(); // En fait, run snooz in background
+                closeSnooz(); // In fact, run this app in background
             }
         });
 
+    }
+
+    // Function to check and request permission.
+    public void checkPermission(String permission, int requestCode)
+    {
+        if (ContextCompat.checkSelfPermission(MainActivity.this, permission)
+                == PackageManager.PERMISSION_DENIED) {
+
+            // Requesting the permission
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[] { permission },
+                    requestCode);
+        }
+        else {
+            makeToast("Permission already granted");
+            runInBackground();
+        }
+    }
+
+    // This function is called when the user accepts or decline the permission.
+    // Request Code is used to check which permission called this function.
+    // This request code is provided when the user is prompt for permission.
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == RECEIVE_SMS_CODE) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                makeToast("SMS Permission Granted");
+                runInBackground();
+                // suppr not 1
+            }
+            else {
+                makeToast("SMS Permission Denied");
+                welcomeNotification(); // == demande de permission
+            }
+        }
     }
 
     // On simule le btn "retour" du telephone lorsque un user ferme Snooz
@@ -134,60 +194,53 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         // Supprimer la notif sur le status bar
-        int NOTIFICATION_ID = 1;
+        int NOTIFICATION_ID = 2;
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
         notificationManagerCompat.cancel(NOTIFICATION_ID);
     }
 
-    // Résultat de la demande d'autorisation faite au début de la demande
-    @Override
-    public void onRequestPermissionsResult(
-            int requestCode,
-            @NonNull final String[] permissions,
-            @NonNull final int[] grantResults
-    ) {
-        if (requestCode == 100) {
-            RuntimePermissionUtil.onRequestPermissionsResult(grantResults, new RPResultListener() {
-                @Override
-                public void onPermissionGranted() {
-                    if ( RuntimePermissionUtil.checkPermissonGranted(MainActivity.this, sReceiveSmsPerm)) {
-                       runInBackground();
-                       readSMS();
-                    }
-                }
-
-                @Override
-                public void onPermissionDenied() {
-                    Toast.makeText(MainActivity.this, "L'aplication risque de ne pas fonctionner !", Toast.LENGTH_LONG).show();
-                }
-            });
-        }
-    }
-
-    public void firstStartMethode(){
+    public void firstStartMethod(){
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("firstStart", false);
         editor.apply();
 
-        checkSmsPermision();
-        runInBackground();
-        readSMS();
+        checkPermission(Manifest.permission.RECEIVE_SMS, RECEIVE_SMS_CODE);
+        welcomeNotification(); // == demande de permission
+        makeToast("First start");
         finish();
     }
 
-    private void checkSmsPermision() {
-        boolean receiveSmsPermission = RuntimePermissionUtil.checkPermissonGranted(this, sReceiveSmsPerm);
+    public void welcomeNotification()
+    {
+        createNotificationChannel(getApplicationContext());
 
-        if (receiveSmsPermission) {
-            runInBackground();
-            readSMS();
-        }else{
-            RuntimePermissionUtil.requestPermission(
-                    MainActivity.this,
-                    sReceiveSmsPerm,
-                    100
-            );
+        Intent appPermIntent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", this.getPackageName(), null));
+        PendingIntent appPermPendingIntent = PendingIntent.getActivity(this, 0, appPermIntent, 0);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "Notification de bienvenue");
+        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setOngoing(true); // on veut que si l'utilisateur ne veut pas de cette notif, le seul moyen de s'en debarasser sera d'aller dans le sttings des autorisations.
+        builder.setContentTitle("Bienvenue !");
+        builder.setStyle(new NotificationCompat.BigTextStyle().bigText("Merci d'avoir installé Slooz. Pour fonctionner correctement, il a besoin de certains autorisations. On vous recommande de les activer pour que slooz fonctionne correctement."));
+        builder.addAction(R.mipmap.ic_launcher_round, "Accorder les autorisations", appPermPendingIntent);
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        notificationManagerCompat.notify(1, builder.build());
+    }
+
+    private void createNotificationChannel(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Notification de bienvenue de slooz app";
+            String description = "Notification pour donner des infos et explications au premier lancement de l'app";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel("Notification de bienvenue", name, importance);
+            channel.setShowBadge(true); // set false to disable badges, Oreo exclusive
+            channel.setDescription(description);
+            NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+            assert notificationManager != null;
+            notificationManager.createNotificationChannel(channel);
         }
     }
 
@@ -195,11 +248,7 @@ public class MainActivity extends AppCompatActivity {
         startService(new Intent(getApplicationContext(), MyService.class));
     }
 
-    public void readSMS(){
-        Toast.makeText(MainActivity.this, "Hamaky SMS !", Toast.LENGTH_LONG).show();
-    }
-
-    // Methode permettant de Fermer l'application avec le bouton Exit
+    // Method to Close the application with the Exit button
     public void exitApp(){
         // TODO Auto-generated method stub
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
@@ -209,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
 
-                        Toast.makeText(MainActivity.this, "Merci vous êtes meilleur !", Toast.LENGTH_LONG).show();
+                        makeToast("Merci, vous êtes le meilleur !");
 
                         onBackPressed();
                     }
@@ -217,11 +266,17 @@ public class MainActivity extends AppCompatActivity {
         alertDialogBuilder.setNegativeButton(R.string.negative_btn_exit_dialog,new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //restartActivity();
+                //do nothing
             }
         });
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
+
+    // Tools
+    public void makeToast(String message){
+        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+    }
+
 }

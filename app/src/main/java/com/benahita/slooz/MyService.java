@@ -15,8 +15,8 @@ import androidx.core.app.NotificationCompat;
 
 public class MyService extends Service {
 
-    private static final int NOTIF_ID = 2;
-    private static final String NOTIF_CHANNEL_ID = "Channel_Id";
+    private static final int NOTIF_ID = 3;
+    private static final String NOTIF_CHANNEL_ID = "Notification de service de slooz";
 
     @Nullable
     @Override
@@ -28,32 +28,27 @@ public class MyService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId){
         startForeground();
         return super.onStartCommand(intent, flags, startId);
-        //return START_REDELIVER_INTENT;
     }
 
-    private void startForeground() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createNotificationChannel(getApplicationContext());
-        }
+    private void startForeground()
+    {
+        createNotificationChannel(getApplicationContext());
         startForeground(NOTIF_ID, new NotificationCompat.Builder(this,
                 NOTIF_CHANNEL_ID) // don't forget create a notification channel first
-                .setOngoing(true) // notif not deletable on panel
+                .setContentTitle("Slooz est opérationnel")
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentText("Slooz fonctionne en arrière-plan")
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("Désormais, vous avez tous les codes de forfait mobile existants dans votre téléphone."))
                 .build());
     }
 
     private void createNotificationChannel(Context context) {
-        // Créer le canal de notification, mais uniquement sur l'API 26+ car
-        // la classe NotificationChannel est nouvelle et ne se trouve pas dans la bibliothèque de support
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Slooz persistant notification";
-            String description = "Notification toujours visible";
+            CharSequence name = "Notification toujours visible";
+            String description = "Notification persistant tant que slooz est opérationnel";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(NOTIF_CHANNEL_ID, name, importance);
+            channel.setShowBadge(true); // set false to disable badges, Oreo exclusive
             channel.setDescription(description);
-            // Enregistrez la chaîne dans le système ; vous ne pouvez pas en changer l'importance
-            // ou d'autres comportements de notification après cette
             NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
             assert notificationManager != null;
             notificationManager.createNotificationChannel(channel);

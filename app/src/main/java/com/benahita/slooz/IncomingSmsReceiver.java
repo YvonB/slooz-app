@@ -54,7 +54,7 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
                             String valCredit = split[1];
                             String notif_e_recharge = "Bonjour ! Vous venez de recharger "+ valCredit +"Ar votre solde.";
 
-                            int NOTIFICATION_ID = 1;
+                            int NOTIFICATION_ID = 2;
                             String messageIntegral = "Sloozé pour pouvoir bénéficiera les offres de forfaits.";
                             Intent snoozIntent = new Intent(context, MainActivity.class);// Create an explicit intent for an Activity in your app
                             snoozIntent.setAction(ACTION_SNOOZ);
@@ -79,8 +79,8 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
                             it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(it);
                         }else {
-                            int NOTIFICATION_ID = 1;
-                            String messageTitle = "Bonjour!";
+                            int NOTIFICATION_ID = 2;
+                            String messageTitle = "Bonjour !";
                             String messageIntegral = "Vous venez de recharger votre compte.\nSloozer pour pouvoir bénéficier les offres de forfaits.";
                             Intent snoozIntent = new Intent(context, MainActivity.class);// Create an explicit intent for an Activity in your app
                             snoozIntent.setAction(ACTION_SNOOZ);
@@ -116,17 +116,16 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
         }
     }
 
-    private void createNotificationChannel(Context context) {
-        // Créer le canal de notification, mais uniquement sur l'API 26+ car
-        // la classe NotificationChannel est nouvelle et ne se trouve pas dans la bibliothèque de support
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    private void createNotificationChannel(Context context)
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
             CharSequence name = "Snooz notification";
             String description = "Notification à chaque message de crédit entrant";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setShowBadge(true); // set false to disable badges, Oreo exclusive
             channel.setDescription(description);
-            // Enregistrez la chaîne dans le système ; vous ne pouvez pas en changer l'importance
-            // ou d'autres comportements de notification après cette
             NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
             assert notificationManager != null;
             notificationManager.createNotificationChannel(channel);
