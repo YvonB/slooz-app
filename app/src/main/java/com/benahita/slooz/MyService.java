@@ -25,7 +25,8 @@ public class MyService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId){
+    public int onStartCommand(Intent intent, int flags, int startId)
+    {
         startForeground();
         return super.onStartCommand(intent, flags, startId);
     }
@@ -35,14 +36,16 @@ public class MyService extends Service {
         createNotificationChannel(getApplicationContext());
         startForeground(NOTIF_ID, new NotificationCompat.Builder(this,
                 NOTIF_CHANNEL_ID) // don't forget create a notification channel first
-                .setContentTitle("Slooz est opérationnel")
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Slooz vous facilite la vie")
+                .setSmallIcon(R.drawable.ic_notification)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText("Désormais, vous avez tous les codes de forfait mobile existants dans votre téléphone."))
                 .build());
     }
 
-    private void createNotificationChannel(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    private void createNotificationChannel(Context context)
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
             CharSequence name = "Notification toujours visible";
             String description = "Notification persistant tant que slooz est opérationnel";
             int importance = NotificationManager.IMPORTANCE_HIGH;
