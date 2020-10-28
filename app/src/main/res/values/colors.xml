@@ -31,7 +31,9 @@
     <color name="btn_19">#006400</color>
     <color name="btn_20">#006400</color>
 
-    <!-- Contours -->
+    <!-- Rdv au Telma-->
+    <color name="btn_telma">#006400</color>
+     <!-- Contours -->
     <color name="contour">#fff</color>
 
     <!-- Contours Telma-->

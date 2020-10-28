@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/btn_19"/>
+            <solid android:color="@color/btn_telma"/>
             <stroke android:color="@color/contour_telma" android:width="5dp" />
             <size
                 android:width="75dp"
