@@ -30,6 +30,16 @@
             </intent-filter>
         </receiver>
 
+        <receiver
+            android:name="com.benahita.slooz.ServiceRestarterBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:label="RestartServiceWhenStopped">
+            <intent-filter>
+                <action android:name="ac.in.SloozActivity.RestartService" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name="com.benahita.slooz.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

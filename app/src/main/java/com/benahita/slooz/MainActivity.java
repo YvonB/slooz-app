@@ -11,6 +11,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.ActivityManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -25,6 +26,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -247,7 +249,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void runInBackground()
     {
-        startService(new Intent(getApplicationContext(), MyService.class));
+        // For service
+        MyService mMyService = new MyService(getApplicationContext());
+        Intent mServiceIntent = new Intent(getApplicationContext(), mMyService.getClass());
+        if (!isMyServiceRunning(mMyService.getClass())) {
+            startService(mServiceIntent);
+        }
+
+    }
+
+    private boolean isMyServiceRunning(Class<? extends MyService> aClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (aClass.getName().equals(service.service.getClassName())) {
+                Log.i ("isMyServiceRunning?", true+"");
+                return true;
+            }
+        }
+        Log.i ("isMyServiceRunning?", false+"");
+        return false;
     }
 
     // Method to Close the application with the Exit button

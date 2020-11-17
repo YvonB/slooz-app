@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -17,6 +18,16 @@ public class MyService extends Service {
 
     private static final int NOTIF_ID = 3;
     private static final String NOTIF_CHANNEL_ID = "Notification de service de slooz";
+
+    // Constructor
+    Context context;
+    public MyService(Context applicationContext) {
+        super();
+        context = applicationContext;
+        Log.i("HERE", "here service created!");
+    }
+    public MyService() {
+    }
 
     @Nullable
     @Override
@@ -30,6 +41,16 @@ public class MyService extends Service {
         startForeground();
         //return super.onStartCommand(intent, flags, startId);
         return START_STICKY;
+    }
+
+    // Au cas ou
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        Log.i("EXIT", "ondestroy!");
+        Intent broadcastIntent = new Intent("ac.in.SloozActivity.RestartService");
+        sendBroadcast(broadcastIntent);
     }
 
     private void startForeground()
