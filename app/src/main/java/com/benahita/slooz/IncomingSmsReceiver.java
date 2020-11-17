@@ -27,7 +27,29 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
     // Notification
     private final String CHANNEL_ID = "sms_notification";
 
+    // Broadcast TAG
+    private static final String TAG = "IncomingSmsReceiver";
+
     public void onReceive(Context context, Intent intent) {
+
+        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Action: " + intent.getAction() + "\n");
+            sb.append("URI: " + intent.toUri(Intent.URI_INTENT_SCHEME).toString() + "\n");
+            String log = sb.toString();
+            Log.d(TAG, log);
+            Toast.makeText(context, log, Toast.LENGTH_LONG).show();
+
+            // Start my service
+            Intent it = new Intent(context, MyService.class);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(it);
+                Log.d(TAG, "Service started by the broadcast");
+            }else{
+                context.startService(it);
+                Log.d(TAG, "Service started by the broadcast");
+            }
+        }
 
         // Retrieves a map of extended data from the intent.
         final Bundle bundle = intent.getExtras();
@@ -130,6 +152,12 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
             assert notificationManager != null;
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    // Tools
+    public void makeToast(String message, Context ctx)
+    {
+        Toast.makeText(ctx, message, Toast.LENGTH_LONG).show();
     }
 
 }

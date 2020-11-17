@@ -28,7 +28,8 @@ public class MyService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         startForeground();
-        return super.onStartCommand(intent, flags, startId);
+        //return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
     }
 
     private void startForeground()

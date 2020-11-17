@@ -20,17 +20,13 @@
         android:fullBackupContent="true"
         >
 
-        <receiver android:name="com.benahita.slooz.BootCompletedReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.ACTION_BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
         <receiver android:name="com.benahita.slooz.IncomingSmsReceiver"
-            android:permission="android.permission.BROADCAST_SMS">
+                  android:permission="android.permission.BROADCAST_SMS"
+                  android:exported="true">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.INPUT_METHOD_CHANGED" />
             </intent-filter>
         </receiver>
 
@@ -54,10 +50,6 @@
             android:stopWithTask="false"
             android:persistent="true"
             android:permission="RECEIVE_SMS">
-        </service>
-
-        <service android:name="com.benahita.slooz.MainJobService"
-                 android:permission="android.permission.BIND_JOB_SERVICE">
         </service>
 
     </application>
