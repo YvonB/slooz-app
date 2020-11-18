@@ -53,7 +53,7 @@ public class MyService extends Service {
                 NOTIF_CHANNEL_ID) // don't forget create a notification channel first
                 .setContentTitle("Slooz head service")
                 .setSmallIcon(R.drawable.ic_notification)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText("Laissez slooz vous guider sur un choix raisoné."))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("Vos forfaits pour vos crédits."))
                 .build());
         Log.i("startForeground", "Service's notification");
     }
