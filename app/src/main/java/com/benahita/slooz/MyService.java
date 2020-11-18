@@ -56,44 +56,6 @@ public class MyService extends Service {
         sendBroadcast(broadcastIntent);
     }
 
-    //Restart the service when the app is closed in the recents app lists
-    /*@Override
-    public void onTaskRemoved(Intent rootIntent) {
-
-        Log.i("onTaskRemoved", "All recent app cleared");
-
-        // For service
-        MyService mMyService = new MyService(getApplicationContext());
-        Intent mServiceIntent = new Intent(getApplicationContext(), mMyService.getClass());
-
-        if (!isMyServiceRunning(mMyService.getClass())) {
-
-            Log.i("isMyServiceRunning ?", "App removed from the recents app lists, service has died, trying to start our service in 1... 2... 3...");
-
-            Intent restartServiceIntent = new Intent(getApplicationContext(), MyService.class);
-            PendingIntent restartServicePendingIntent = PendingIntent.getService(this, 1, restartServiceIntent, PendingIntent.FLAG_ONE_SHOT);
-            getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-            AlarmManager alarmService = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-            alarmService.set(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + 1000, restartServicePendingIntent);
-        }else {
-            // Doing nothing, because service is already runnig !
-            Log.i(" isMyServiceRunning ?", "App removed from the recents app lists but our service still runnig");
-        }
-
-    }
-
-    private boolean isMyServiceRunning(Class<? extends MyService> aClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (aClass.getName().equals(service.service.getClassName())) {
-                Log.i ("isMyServiceRunning?", true+"");
-                return true;
-            }
-        }
-        Log.i ("isMyServiceRunning?", false+"");
-        return false;
-    }*/
-
     private void createNotification()
     {
         createNotificationChannel(getApplicationContext());
