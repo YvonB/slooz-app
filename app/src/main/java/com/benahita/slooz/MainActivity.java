@@ -253,9 +253,14 @@ public class MainActivity extends AppCompatActivity {
         MyService mMyService = new MyService(getApplicationContext());
         Intent mServiceIntent = new Intent(getApplicationContext(), mMyService.getClass());
         if (!isMyServiceRunning(mMyService.getClass())) {
-            startService(mServiceIntent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Log.i ("startService?", "Starting the service in >=26 Mode");
+                startForegroundService(mServiceIntent);
+            }else{
+                Log.i ("startService?", "Starting the service in < 26 Mode");
+                startService(mServiceIntent);
+            }
         }
-
     }
 
     private boolean isMyServiceRunning(Class<? extends MyService> aClass) {

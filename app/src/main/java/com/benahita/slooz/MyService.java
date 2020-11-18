@@ -1,5 +1,6 @@
 package com.benahita.slooz;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -38,7 +40,7 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        startForeground();
+        createNotification();
         //return super.onStartCommand(intent, flags, startId);
         return START_STICKY;
     }
@@ -53,7 +55,19 @@ public class MyService extends Service {
         sendBroadcast(broadcastIntent);
     }
 
-    private void startForeground()
+    //Restart the service when the app is closed 
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        //super.onTaskRemoved(rootIntent);
+        Log.i("onTaskRemoved", "All recent app cleared");
+        Intent restartServiceIntent = new Intent(getApplicationContext(), MyService.class).setPackage("com.benahita.slooz");
+        PendingIntent restartServicePendingIntent = PendingIntent.getService(this, 1, restartServiceIntent, PendingIntent.FLAG_ONE_SHOT);
+        getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmService = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        alarmService.set(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + 1000, restartServicePendingIntent);
+    }
+
+    private void createNotification()
     {
         createNotificationChannel(getApplicationContext());
         startForeground(NOTIF_ID, new NotificationCompat.Builder(this,
@@ -62,6 +76,7 @@ public class MyService extends Service {
                 .setSmallIcon(R.drawable.ic_notification)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText("Désormais, vous avez tous les codes de forfait mobile existants dans votre téléphone."))
                 .build());
+        Log.i("startForeground", "Service's notification");
     }
 
     private void createNotificationChannel(Context context)
