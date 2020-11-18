@@ -36,6 +36,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 public class MainActivity extends AppCompatActivity {
 
     //Page indicator du slider
@@ -126,10 +128,32 @@ public class MainActivity extends AppCompatActivity {
         mCloseBtn.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                View view = findViewById(R.id.activity_main_frame_layout);
+                String message = "Quitter slooz ?";
+                int duration = Snackbar.LENGTH_SHORT;
+
+                showSnackbar(view, message, duration);
+
+
+            }
+        });
+
+    }
+
+    private void showSnackbar(View view, String message, int duration) {
+        // Create snackbar
+        final Snackbar snackbar = Snackbar.make(view, message, duration);
+
+        // Set an action on it, and a handler
+        snackbar.setAction("Oui", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
                 closeSlooz(); // In fact, run this app in background
             }
         });
 
+        snackbar.show();
     }
 
     // Function to check and request permission.
@@ -145,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             //Permission already granted
-            runInBackground();
+            runSloozHeadService();
         }
     }
 
@@ -172,9 +196,9 @@ public class MainActivity extends AppCompatActivity {
                 if (firstStart) {
                     Log.d("App", "First start");
                     firstStartMethod();
+                }else{
+                    runSloozHeadService();
                 }
-
-                runInBackground();
             }
             else
                 {
@@ -185,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void closeSlooz() {
-        exitApp();
+        onBackPressed();
     }
 
     //Return btn pressed
@@ -213,17 +237,33 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean("firstStart", false);
         editor.apply();
 
-        welcome();
+        welcomeMethod();
     }
 
-    public void welcome()
+    public void welcomeMethod()
     {
         makeToast("Bienvenu");
+
+        // start service for the first start
+        MyService mMyService = new MyService(getApplicationContext());
+        Intent mServiceIntent = new Intent(getApplicationContext(), mMyService.getClass());
+
+        if (!isMyServiceRunning(mMyService.getClass())) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Log.i ("isMyServiceRunning?", "Starting the service in Android 8.0 et plus");
+                startForegroundService(mServiceIntent);
+            }else{
+                Log.i ("isMyServiceRunning?", "Starting the service in Android < version 7");
+                startService(mServiceIntent);
+            }
+        }else{
+            Log.i("isMyServiceRunning?", "Service already runnig");
+        }
     }
 
-    public void runInBackground()
+    public void runSloozHeadService()
     {
-        // For service
+        // For service // avec content de vous revoir
         MyService mMyService = new MyService(getApplicationContext());
         Intent mServiceIntent = new Intent(getApplicationContext(), mMyService.getClass());
 
@@ -255,31 +295,6 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    // Method to Close the application with the Exit button
-    public void exitApp()
-    {
-        // TODO Auto-generated method stub
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-        alertDialogBuilder.setMessage(R.string.exit_dialog_title);
-        alertDialogBuilder.setPositiveButton(R.string.positive_btn_exit_dialog,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        makeToast("Merci, vous êtes le meilleur !");
-                        onBackPressed(); // On simule le btn "retour" du telephone lorsque un user ferme Snooz
-                    }
-                });
-        alertDialogBuilder.setNegativeButton(R.string.negative_btn_exit_dialog,new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //do nothing
-            }
-        });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
-
     // Tools
     public void makeToast(String message)
     {
@@ -288,6 +303,7 @@ public class MainActivity extends AppCompatActivity {
 
     // If the app is closed by his x close btn
     // Or the app is closed in the recents app lists
+    // Otherwise it is necessary to check the app's setting on battery usage or RAM usage because there may be some restrictions.
     @Override
     protected void onDestroy() {
 
