@@ -193,9 +193,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
+        // 1. Close simulation
         super.onBackPressed();
 
-        // clear notification
+        // 2. clear credit's sms notification
         clearNotification();
     }
 
