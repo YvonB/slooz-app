@@ -173,15 +173,14 @@ public class MainActivity extends AppCompatActivity {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
-                makeToast("SMS Permission Granted");
+                Log.d("Permission", "SMS permission granted !");
                 runInBackground();
             }
             else
                 {
-                makeToast("SMS Permission Denied");
-
-                // Requesting the permission
-            }
+                    Log.d("Permission", "SMS permission denied !");
+                    // So re requesting the permission
+                }
         }
     }
 
@@ -214,41 +213,12 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean("firstStart", false);
         editor.apply();
 
-        welcomeNotification(); // == demande de permission
+        welcome(); // == demande de permission
     }
 
-    public void welcomeNotification()
+    public void welcome()
     {
-        createNotificationChannel(getApplicationContext());
-
-        Intent appPermIntent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", this.getPackageName(), null));
-        PendingIntent appPermPendingIntent = PendingIntent.getActivity(this, 0, appPermIntent, 0);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "Notification de bienvenue");
-        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
-        builder.setSmallIcon(R.mipmap.ic_launcher);
-        builder.setContentTitle("Bienvenue !");
-        builder.setStyle(new NotificationCompat.BigTextStyle().bigText("Merci d'avoir installé Slooz. Pour fonctionner, il a besoin de certains autorisations. Verifiez qu'ils sont tous activés."));
-        builder.addAction(R.mipmap.ic_launcher_round, "Gérer", appPermPendingIntent);
-
-        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
-        notificationManagerCompat.notify(1, builder.build());
-    }
-
-    private void createNotificationChannel(Context context)
-    {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
-            CharSequence name = "Notification de bienvenue de slooz app";
-            String description = "Notification pour donner des infos et explications au premier lancement de l'app";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel("Notification de bienvenue", name, importance);
-            channel.setShowBadge(true); // set false to disable badges, Oreo exclusive
-            channel.setDescription(description);
-            NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-            assert notificationManager != null;
-            notificationManager.createNotificationChannel(channel);
-        }
+        makeToast("Bienvenu !");
     }
 
     public void runInBackground()

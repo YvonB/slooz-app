@@ -43,11 +43,11 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
             // Start my service
             Intent it = new Intent(context, MyService.class);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Log.d(TAG, "Service started by the broadcast, Android 8 et plus");
                 context.startForegroundService(it);
-                Log.d(TAG, "Service started by the broadcast");
             }else{
+                Log.d(TAG, "Service started by the broadcast, Android 7 et moins");
                 context.startService(it);
-                Log.d(TAG, "Service started by the broadcast");
             }
         }
 
