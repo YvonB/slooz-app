@@ -51,9 +51,9 @@ public class MyService extends Service {
         createNotificationChannel(getApplicationContext());
         startForeground(NOTIF_ID, new NotificationCompat.Builder(this,
                 NOTIF_CHANNEL_ID) // don't forget create a notification channel first
-                .setContentTitle("Slooz vous facilite la vie")
+                .setContentTitle("Slooz head service")
                 .setSmallIcon(R.drawable.ic_notification)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText("Désormais, vous avez tous les codes de forfait mobile existants dans votre téléphone."))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("Laissez slooz vous guider sur un choix raisoné."))
                 .build());
         Log.i("startForeground", "Service's notification");
     }
