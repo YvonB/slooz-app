@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.ActivityManager;
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -25,6 +26,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
@@ -133,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         mCloseBtn.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                closeSnooz(); // In fact, run this app in background
+                closeSlooz(); // In fact, run this app in background
             }
         });
 
@@ -151,7 +153,8 @@ public class MainActivity extends AppCompatActivity {
                     requestCode);
         }
         else {
-            makeToast("Permission already granted");
+            //Permission already granted
+            makeToast("Content de vous revoir !");
             runInBackground();
         }
     }
@@ -182,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void closeSnooz() {
+    private void closeSlooz() {
         exitApp();
     }
 
@@ -252,15 +255,19 @@ public class MainActivity extends AppCompatActivity {
         // For service
         MyService mMyService = new MyService(getApplicationContext());
         Intent mServiceIntent = new Intent(getApplicationContext(), mMyService.getClass());
+
         if (!isMyServiceRunning(mMyService.getClass())) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                Log.i ("startService?", "Starting the service in >=26 Mode");
+                Log.i ("isMyServiceRunning?", "Starting the service in Android 8.0 et plus");
                 startForegroundService(mServiceIntent);
             }else{
-                Log.i ("startService?", "Starting the service in < 26 Mode");
+                Log.i ("isMyServiceRunning?", "Starting the service in Android < version 7");
                 startService(mServiceIntent);
             }
+        }else{
+            Log.i("isMyServiceRunning?", "Service already runnig");
         }
+
     }
 
     private boolean isMyServiceRunning(Class<? extends MyService> aClass) {
@@ -306,4 +313,32 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
+    // If the app is closed by his x close btn
+    // Or the app is closed in the recents app lists
+    @Override
+    protected void onDestroy() {
+
+        Log.i("MainActivity", "On destroy called");
+
+        // For service
+        MyService mMyService = new MyService(getApplicationContext());
+        Intent mServiceIntent = new Intent(getApplicationContext(), mMyService.getClass());
+
+        if (!isMyServiceRunning(mMyService.getClass())) {
+
+            Log.i("isMyServiceRunning ?", "App closed, service has died, Start the service in 1... 2...3... ");
+
+            Intent restartServiceIntent = new Intent(getApplicationContext(), MyService.class);
+            PendingIntent restartServicePendingIntent = PendingIntent.getService(this, 1, restartServiceIntent, PendingIntent.FLAG_ONE_SHOT);
+            getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+            AlarmManager alarmService = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+            alarmService.set(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + 1000, restartServicePendingIntent);
+        }else{
+            // Doing nothing, because service is already runnig !
+            Log.i("isMyServiceRunning ?", "App closed but our service still runnig");
+        }
+
+
+        super.onDestroy();
+    }
 }
