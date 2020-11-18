@@ -58,7 +58,10 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
             if (bundle != null) {
                 final Object[] pdusObj = (Object[]) bundle.get("pdus");
 
-                assert pdusObj != null;
+                if(!(pdusObj == null)){
+                    assert pdusObj != null;
+                }
+
                 for (Object o : pdusObj) {
 
                     SmsMessage currentMessage = SmsMessage.createFromPdu((byte[]) o);

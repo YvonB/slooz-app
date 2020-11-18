@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 sloganAppTopTv.setVisibility(View.GONE);
                 sloganAppBottomTv.setVisibility(View.GONE);
             }
-        }, 4000);
+        }, 8000);
 
         // =================================== slide ======================
         ViewPager viewPager = findViewById(R.id.activity_main_viewpager);
@@ -122,15 +122,6 @@ public class MainActivity extends AppCompatActivity {
 
         // ================================Fin slide ================================
 
-
-        // First opening of the app
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        boolean firstStart = prefs.getBoolean("firstStart", true);
-
-        if (firstStart) {
-            firstStartMethod();
-        }
-
         // Click on close
         mCloseBtn.setOnClickListener( new View.OnClickListener(){
             @Override
@@ -154,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             //Permission already granted
-            makeToast("Content de vous revoir !");
             runInBackground();
         }
     }
@@ -174,6 +164,16 @@ public class MainActivity extends AppCompatActivity {
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
                 Log.d("Permission", "SMS permission granted !");
+
+                // First opening of the app
+                SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+                boolean firstStart = prefs.getBoolean("firstStart", true);
+
+                if (firstStart) {
+                    Log.d("App", "First start");
+                    firstStartMethod();
+                }
+
                 runInBackground();
             }
             else
@@ -213,12 +213,12 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean("firstStart", false);
         editor.apply();
 
-        welcome(); // == demande de permission
+        welcome();
     }
 
     public void welcome()
     {
-        makeToast("Bienvenu !");
+        makeToast("Bienvenu");
     }
 
     public void runInBackground()
@@ -231,9 +231,11 @@ public class MainActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Log.i ("isMyServiceRunning?", "Starting the service in Android 8.0 et plus");
                 startForegroundService(mServiceIntent);
+                makeToast("Content de vous revoir");
             }else{
                 Log.i ("isMyServiceRunning?", "Starting the service in Android < version 7");
                 startService(mServiceIntent);
+                makeToast("Content de vous revoir");
             }
         }else{
             Log.i("isMyServiceRunning?", "Service already runnig");

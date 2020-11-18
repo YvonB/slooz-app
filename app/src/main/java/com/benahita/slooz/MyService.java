@@ -46,16 +46,6 @@ public class MyService extends Service {
         return START_STICKY;
     }
 
-    // Au cas ou
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        Log.i("EXIT", "ondestroy!");
-        Intent broadcastIntent = new Intent("ac.in.SloozActivity.RestartService");
-        sendBroadcast(broadcastIntent);
-    }
-
     private void createNotification()
     {
         createNotificationChannel(getApplicationContext());
