@@ -112,8 +112,9 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
 
                             int NOTIFICATION_ID = 2;
                             String messageTitle = "Bonjour !";
-                            String messageContentExtrait = "Vous venez de recharger votre compte...";
+                            String messageContentExtrait = "Vous venez de recharger votre solde...";
                             String messageIntegral = "Vous venez de recharger votre compte.\nSloozer pour pouvoir bénéficier les offres de forfaits.";
+
                             Intent snoozIntent = new Intent(context, MainActivity.class);// Create an explicit intent for an Activity in your app
                             snoozIntent.setAction(ACTION_SNOOZ);
 
@@ -132,6 +133,8 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
                             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(messageIntegral));
                             builder.addAction(R.drawable.ic_launcher_background, "Sloozer",
                                     snoozPendingIntent); // lorsque l'utilisateur tapera sur le btn snoozer
+
+                            builder.setContentIntent(snoozPendingIntent); // 10 +
 
                             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
                             notificationManagerCompat.notify(NOTIFICATION_ID, builder.build());
