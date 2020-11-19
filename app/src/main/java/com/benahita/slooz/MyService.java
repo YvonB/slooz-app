@@ -49,8 +49,8 @@ public class MyService extends Service {
     {
         createNotificationChannel(getApplicationContext());
         startForeground(NOTIF_ID, new NotificationCompat.Builder(this,
-                NOTIF_CHANNEL_ID) // don't forget create a notification channel first
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                NOTIF_CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_twotone_cloud_done_24)
                 .setContentTitle("Slooz service")
                 .setContentText("Des forfaits en fonction de vos crédits.")
                 .build());
@@ -65,7 +65,7 @@ public class MyService extends Service {
             String description = "Notification persistant tant que slooz est opérationnel";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(NOTIF_CHANNEL_ID, name, importance);
-            channel.setShowBadge(false); // set false to disable badges, Oreo exclusive
+            channel.setShowBadge(false);
             channel.setDescription(description);
             NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
             assert notificationManager != null;

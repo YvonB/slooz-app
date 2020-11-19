@@ -95,7 +95,7 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
                             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
 
                             builder.setPriority(NotificationCompat.PRIORITY_HIGH);
-                            builder.setSmallIcon(R.mipmap.ic_launcher);
+                            builder.setSmallIcon(R.drawable.ic_twotone_perm_phone_msg_24);
                             builder.setContentTitle(notif_e_recharge);
                             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(messageIntegral));
                             builder.addAction(R.drawable.ic_launcher_background, "Sloozer",
@@ -125,7 +125,7 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
 
                             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
                             builder.setPriority(NotificationCompat.PRIORITY_HIGH);
-                            builder.setSmallIcon(R.mipmap.ic_launcher);
+                            builder.setSmallIcon(R.drawable.ic_twotone_perm_phone_msg_24);
                             builder.setContentTitle(messageTitle);
                             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(messageIntegral));
                             builder.addAction(R.drawable.ic_launcher_background, "Sloozer",
