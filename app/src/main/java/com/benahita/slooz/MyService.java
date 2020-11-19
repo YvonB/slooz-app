@@ -50,7 +50,7 @@ public class MyService extends Service {
         createNotificationChannel(getApplicationContext());
         startForeground(NOTIF_ID, new NotificationCompat.Builder(this,
                 NOTIF_CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_twotone_cloud_done_24)
+                .setSmallIcon(R.drawable.ic_twotone_cloud_24)
                 .setContentTitle("Slooz service")
                 .setContentText("Des forfaits en fonction de vos crédits.")
                 .build());
