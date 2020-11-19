@@ -73,7 +73,9 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
 
                     //*********************** Notification**********************
                     if(senderNum.equals("209") || senderNum.equals("2ToiAMoi") || senderNum.equals("e-recharge")){
+
                         if(senderNum.equals("e-recharge")){
+
                             String[] split = message.split("Ar");
                             //String firstSubString = split[0];
                             String valCredit = split[1];
@@ -83,12 +85,15 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
                             String messageIntegral = "Sloozé pour pouvoir bénéficiera les offres de forfaits.";
                             Intent snoozIntent = new Intent(context, MainActivity.class);// Create an explicit intent for an Activity in your app
                             snoozIntent.setAction(ACTION_SNOOZ);
+
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 snoozIntent.putExtra(EXTRA_NOTIFICATION_ID, 0);
                             }
+
                             PendingIntent snoozPendingIntent = PendingIntent.getActivity(context, 0, snoozIntent, 0);
                             createNotificationChannel(context); // pour Android v8.0 et plus
                             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
+
                             builder.setPriority(NotificationCompat.PRIORITY_HIGH);
                             builder.setSmallIcon(R.mipmap.ic_launcher);
                             builder.setContentTitle(notif_e_recharge);
@@ -104,16 +109,20 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
                             it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(it);
                         }else {
+
                             int NOTIFICATION_ID = 2;
                             String messageTitle = "Bonjour !";
                             String messageIntegral = "Vous venez de recharger votre compte.\nSloozer pour pouvoir bénéficier les offres de forfaits.";
                             Intent snoozIntent = new Intent(context, MainActivity.class);// Create an explicit intent for an Activity in your app
                             snoozIntent.setAction(ACTION_SNOOZ);
+
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 snoozIntent.putExtra(EXTRA_NOTIFICATION_ID, 0);
                             }
+
                             PendingIntent snoozPendingIntent = PendingIntent.getActivity(context, 0, snoozIntent, 0);
                             createNotificationChannel(context); // pour Android v8.0 et plus
+
                             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
                             builder.setPriority(NotificationCompat.PRIORITY_HIGH);
                             builder.setSmallIcon(R.mipmap.ic_launcher);
@@ -131,7 +140,6 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
                             context.startActivity(it);
                         }
                     }
-
                 } // end for loop
             } // bundle is null
 
@@ -156,11 +164,4 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
-    // Tools
-    public void makeToast(String message, Context ctx)
-    {
-        Toast.makeText(ctx, message, Toast.LENGTH_LONG).show();
-    }
-
 }

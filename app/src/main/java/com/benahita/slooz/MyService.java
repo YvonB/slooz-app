@@ -19,7 +19,7 @@ import androidx.core.app.NotificationCompat;
 
 public class MyService extends Service {
 
-    private static final int NOTIF_ID = 3;
+    private static final int NOTIF_ID = 1;
     private static final String NOTIF_CHANNEL_ID = "Notification de service de slooz";
 
     // Constructor
@@ -42,7 +42,6 @@ public class MyService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         createNotification();
-        //return super.onStartCommand(intent, flags, startId);
         return START_STICKY;
     }
 
@@ -52,8 +51,8 @@ public class MyService extends Service {
         startForeground(NOTIF_ID, new NotificationCompat.Builder(this,
                 NOTIF_CHANNEL_ID) // don't forget create a notification channel first
                 .setContentTitle("Slooz head service")
-                .setSmallIcon(R.drawable.ic_notification)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText("Vos forfaits pour vos crédits."))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("Des forfaits en fonction de vos crédits."))
                 .build());
         Log.i("startForeground", "Service's notification");
     }
@@ -66,7 +65,7 @@ public class MyService extends Service {
             String description = "Notification persistant tant que slooz est opérationnel";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(NOTIF_CHANNEL_ID, name, importance);
-            channel.setShowBadge(true); // set false to disable badges, Oreo exclusive
+            channel.setShowBadge(false); // set false to disable badges, Oreo exclusive
             channel.setDescription(description);
             NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
             assert notificationManager != null;
