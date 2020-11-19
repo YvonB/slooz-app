@@ -55,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
     // Btn close
     private TextView mCloseBtn;
 
+    // Tools for clear notification
+    private boolean delNotif = false;
+
+    private boolean isMeilleur = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -63,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Check permission for SMS
         checkPermission(Manifest.permission.RECEIVE_SMS, RECEIVE_SMS_CODE);
+
+        Log.d("mNotif", "On Create !");
 
         // Btn close
         TextView mCloseBtn = (TextView) findViewById(R.id.activity_main_close_btn);
@@ -142,6 +149,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("mNotif", "On Resume !");
+
+        delNotif = true;
+    }
+
     private void showSnackbar(View view, String message, int duration) {
         // Create snackbar
         final Snackbar snackbar = Snackbar.make(view, message, duration);
@@ -150,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
         snackbar.setAction("Oui", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isMeilleur = true;
                 snackbar.dismiss();
                 closeSlooz(); // In fact, run this app in background
             }
@@ -222,14 +238,12 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
 
         // 2. clear credit's sms notification
-        clearNotification();
-
-        makeToast("Merci, vous êtes le meilleur !");
+        clearSmsCreditNotification();
     }
 
-    public void clearNotification()
+    public void clearSmsCreditNotification()
     {
-         // Incoming SMS id
+        // Incoming SMS id
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
         notificationManagerCompat.cancel(NOTIFICATION_ID);
     }
@@ -299,12 +313,6 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    // Tools
-    public void makeToast(String message)
-    {
-        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
-    }
-
     // If the app is closed by his x close btn
     // Or the app is closed in the recents app lists
     // Otherwise it is necessary to check the app's setting on battery usage or RAM usage because there may be some restrictions.
@@ -331,7 +339,23 @@ public class MainActivity extends AppCompatActivity {
             Log.i("isMyServiceRunning ?", "App closed but our service still runnig");
         }
 
+        // clear Notif raha efa nisokatra le app (premier plan == onResum called)
+        if(delNotif){
+            clearSmsCreditNotification();
+        }
+
+        if(isMeilleur){
+            makeToast("Merci, vous êtes le meilleur !");
+        }
+
 
         super.onDestroy();
+
+    }
+
+    // Tools
+    public void makeToast(String message)
+    {
+        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
     }
 }
