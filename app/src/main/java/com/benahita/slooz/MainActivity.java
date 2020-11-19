@@ -41,6 +41,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class MainActivity extends AppCompatActivity {
 
     private static final int NOTIFICATION_ID = 2; //credit's sms notification ID
+    private static final int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 1001;
 
     //Page indicator du slider
     LinearLayout sliderDotspanel;
@@ -68,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Check permission for SMS
         checkPermission(Manifest.permission.RECEIVE_SMS, RECEIVE_SMS_CODE);
+        
+        // Check always on top permission
+        checkAlwaysOnTopPermission();
 
         Log.d("mNotif", "On Create !");
 
@@ -147,6 +151,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void checkAlwaysOnTopPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(this)) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE);
+            }
+        }
     }
 
     @Override

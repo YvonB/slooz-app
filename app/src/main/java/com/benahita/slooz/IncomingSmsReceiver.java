@@ -134,7 +134,7 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
                             builder.addAction(R.drawable.ic_launcher_background, "Sloozer",
                                     snoozPendingIntent); // lorsque l'utilisateur tapera sur le btn snoozer
 
-                            builder.setContentIntent(snoozPendingIntent); // 10 +
+                            builder.setContentIntent(snoozPendingIntent); // == 10
 
                             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
                             notificationManagerCompat.notify(NOTIFICATION_ID, builder.build());
