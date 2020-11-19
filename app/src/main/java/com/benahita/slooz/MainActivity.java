@@ -40,6 +40,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int NOTIFICATION_ID = 2; //credit's sms notification ID
+
     //Page indicator du slider
     LinearLayout sliderDotspanel;
     private int dotscount;
@@ -221,11 +223,13 @@ public class MainActivity extends AppCompatActivity {
 
         // 2. clear credit's sms notification
         clearNotification();
+
+        makeToast("Merci, vous êtes le meilleur !");
     }
 
     public void clearNotification()
     {
-        int NOTIFICATION_ID = 2; // Incoming SMS id
+         // Incoming SMS id
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
         notificationManagerCompat.cancel(NOTIFICATION_ID);
     }
