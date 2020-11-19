@@ -50,10 +50,9 @@ public class MyService extends Service {
         createNotificationChannel(getApplicationContext());
         startForeground(NOTIF_ID, new NotificationCompat.Builder(this,
                 NOTIF_CHANNEL_ID) // don't forget create a notification channel first
-                .setContentTitle("Slooz head service")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setVisibility(NotificationCompat.VISIBILITY_SECRET)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText("Des forfaits en fonction de vos crédits."))
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Slooz service")
+                .setContentText("Des forfaits en fonction de vos crédits.")
                 .build());
         Log.i("startForeground", "Service's notification");
     }
