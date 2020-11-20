@@ -76,6 +76,12 @@ public class MainActivity extends AppCompatActivity {
 
             // Check always on top permission
             checkAlwaysOnTopPermission();
+        }else{
+            // Quand est-ce qu'on affiche le Message "Content de vous revoir ??"
+            Intent launchIntent = getApplication().getPackageManager().getLaunchIntentForPackage(getApplication().getPackageName());
+            assert launchIntent != null;
+            Log.d("ACTION_LAUNCHER", String.valueOf(launchIntent.getAction()));
+            if((String.valueOf(launchIntent.getAction()).equals("android.intent.action.MAIN"))){makeToast("Content de vous revoir");};
         }
 
         // Btn close
