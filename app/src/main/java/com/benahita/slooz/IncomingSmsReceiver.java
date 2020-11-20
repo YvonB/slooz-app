@@ -21,6 +21,7 @@ import static android.app.Notification.EXTRA_NOTIFICATION_ID;
 public class IncomingSmsReceiver extends BroadcastReceiver {
 
     private static final String ACTION_SNOOZ = "Action_Snooz";
+
     // Get the object of SmsManager
     final SmsManager sms = SmsManager.getDefault();
 
@@ -55,9 +56,11 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
         final Bundle bundle = intent.getExtras();
 
         try {
-            if (bundle != null) {
-                final Object[] pdusObj = (Object[]) bundle.get("pdus");
 
+            if (bundle != null) {
+
+                final Object[] pdusObj = (Object[]) bundle.get("pdus");
+                
                 if(!(pdusObj == null)){
                     assert pdusObj != null;
                 }

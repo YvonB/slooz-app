@@ -6,16 +6,23 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.os.SystemClock;
+import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import static android.app.Notification.EXTRA_NOTIFICATION_ID;
 
 public class MyService extends Service {
 
@@ -42,6 +49,9 @@ public class MyService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         createNotification();
+
+        registerReceiver(new IncomingSmsReceiver(), new IntentFilter("android.provider.Telephony.SMS_RECEIVED"));
+
         return START_STICKY;
     }
 
