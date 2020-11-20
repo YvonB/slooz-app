@@ -67,11 +67,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Check permission for SMS
-        checkPermission(Manifest.permission.RECEIVE_SMS, RECEIVE_SMS_CODE);
-        
-        // Check always on top permission
-        checkAlwaysOnTopPermission();
+        // pour les versions V 6.0 et plus, // Pour les V 5.0 midina permissions auto accordées
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            // Check permission for SMS
+            checkPermission(Manifest.permission.RECEIVE_SMS, RECEIVE_SMS_CODE);
+
+            // Check always on top permission
+            checkAlwaysOnTopPermission();
+        }
 
         Log.d("mNotif", "On Create !");
 
@@ -221,13 +224,13 @@ public class MainActivity extends AppCompatActivity {
             {
                 Log.d("Permission", "SMS permission granted !");
 
-                // First opening of the app
+                // Vars utils fo first opening of the app
                 SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
                 boolean firstStart = prefs.getBoolean("firstStart", true);
 
                 if (firstStart) {
-                    Log.d("App", "First start");
-                    firstStartMethod();
+                    Log.d("AppFirst", "First start");
+                    doStuffOnFirstStart();
                 }else{
                     runSloozHeadService();
                 }
@@ -262,21 +265,19 @@ public class MainActivity extends AppCompatActivity {
         notificationManagerCompat.cancel(NOTIFICATION_ID);
     }
 
-    public void firstStartMethod()
+    public void doStuffOnFirstStart()
     {
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("firstStart", false);
         editor.apply();
 
-        welcomeMethod();
+        checkIfMyServiceIsRunnigOrNot(); // start service for the first start
+        welcomeMessage(); // Puis bienvenu
     }
 
-    public void welcomeMethod()
+    private void checkIfMyServiceIsRunnigOrNot()
     {
-        makeToast("Bienvenu");
-
-        // start service for the first start
         MyService mMyService = new MyService(getApplicationContext());
         Intent mServiceIntent = new Intent(getApplicationContext(), mMyService.getClass());
 
@@ -291,6 +292,12 @@ public class MainActivity extends AppCompatActivity {
         }else{
             Log.i("isMyServiceRunning?", "Service already runnig");
         }
+
+    }
+
+    public void welcomeMessage()
+    {
+        makeToast("Bienvenu");
     }
 
     public void runSloozHeadService()

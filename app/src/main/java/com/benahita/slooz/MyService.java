@@ -48,6 +48,8 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
+        Log.d("isMyServiceRunning", "Slooz head service started");
+
         createNotification();
 
         if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
