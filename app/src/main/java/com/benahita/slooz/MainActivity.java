@@ -64,10 +64,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        Log.d("mNotif", "On Create !");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // pour les versions V 6.0 et plus, // Pour les V 5.0 midina permissions auto accordées
+        // pour les versions V 6.0 et plus, // Pour les V 5.x midina permissions auto accordées
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             // Check permission for SMS
             checkPermission(Manifest.permission.RECEIVE_SMS, RECEIVE_SMS_CODE);
@@ -75,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
             // Check always on top permission
             checkAlwaysOnTopPermission();
         }
-
-        Log.d("mNotif", "On Create !");
 
         // Btn close
         TextView mCloseBtn = (TextView) findViewById(R.id.activity_main_close_btn);
@@ -232,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("AppFirst", "First start");
                     doStuffOnFirstStart();
                 }else{
+                    Log.d("AppFirst", "NOT First start");
                     runSloozHeadService();
                 }
             }
