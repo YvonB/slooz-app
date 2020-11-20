@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int RECEIVE_SMS_CODE = 100;
 
     // Btn close
-    private TextView mCloseBtn;
+    //private TextView mCloseBtn;
 
     // Tools for clear notification
     private boolean delNotif = false;
@@ -145,18 +145,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 View view = findViewById(R.id.activity_main_frame_layout);
-                String message = "Quitter slooz ?";
+                String message = "Quiter ?";
                 int duration = Snackbar.LENGTH_SHORT;
 
                 showSnackbar(view, message, duration);
-
-
             }
         });
 
     }
 
-    private void checkAlwaysOnTopPermission() {
+    private void checkAlwaysOnTopPermission()
+    {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.canDrawOverlays(this)) {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
@@ -174,7 +173,8 @@ public class MainActivity extends AppCompatActivity {
         delNotif = true;
     }
 
-    private void showSnackbar(View view, String message, int duration) {
+    private void showSnackbar(View view, String message, int duration)
+    {
         // Create snackbar
         final Snackbar snackbar = Snackbar.make(view, message, duration);
 
@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 isMeilleur = true;
                 snackbar.dismiss();
-                closeSlooz(); // In fact, run this app in background
+                finish(); // CLOSE SLOOZ In fact, run this app in background
             }
         });
 
@@ -205,6 +205,12 @@ public class MainActivity extends AppCompatActivity {
         else {
             //Permission already granted
             runSloozHeadService();
+
+            // Quand est-ce qu'on affiche le Message "Content de vous revoir ??"
+            Intent launchIntent = getApplication().getPackageManager().getLaunchIntentForPackage(getApplication().getPackageName());
+            assert launchIntent != null;
+            Log.d("ACTION_LAUNCHER", String.valueOf(launchIntent.getAction()));
+            if((String.valueOf(launchIntent.getAction()).equals("android.intent.action.MAIN"))){makeToast("Content de vous revoir");};
         }
     }
 
@@ -244,19 +250,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void closeSlooz() {
-        onBackPressed();
-    }
-
     //Return btn pressed
     @Override
     public void onBackPressed()
     {
-        // 1. Close simulation
-        super.onBackPressed();
+        // 1. Trigger close btn click
+        TextView mCloseBtn = (TextView) findViewById(R.id.activity_main_close_btn);
+        mCloseBtn.performClick();
 
         // 2. clear credit's sms notification
         clearSmsCreditNotification();
+
     }
 
     public void clearSmsCreditNotification()
@@ -296,10 +300,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void welcomeMessage()
-    {
-        makeToast("Bienvenu");
-    }
+    public void welcomeMessage() { makeToast("Bienvenu"); }
 
     public void runSloozHeadService()
     {
@@ -311,11 +312,9 @@ public class MainActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Log.i ("isMyServiceRunning?", "Starting the service in Android 8.0 et plus");
                 startForegroundService(mServiceIntent);
-                makeToast("Content de vous revoir");
             }else{
                 Log.i ("isMyServiceRunning?", "Starting the service in Android < version 7");
                 startService(mServiceIntent);
-                makeToast("Content de vous revoir");
             }
         }else{
             Log.i("isMyServiceRunning?", "Service already runnig");
@@ -362,20 +361,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // clear Notif raha efa nisokatra le app (premier plan == onResum called)
-        if(delNotif){
-            clearSmsCreditNotification();
-        }
+        if(delNotif){clearSmsCreditNotification();}
 
-        if(isMeilleur){
-            makeToast("Merci, vous êtes le meilleur !");
-        }
-
+        if(isMeilleur){makeToast("Merci, vous êtes le meilleur !");}
 
         super.onDestroy();
-
     }
 
-    // Tools
+    // Toast maker
     public void makeToast(String message)
     {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
