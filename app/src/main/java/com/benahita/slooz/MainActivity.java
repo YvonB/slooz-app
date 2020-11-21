@@ -252,7 +252,14 @@ public class MainActivity extends AppCompatActivity {
                 {
                     Log.d("Permission", "SMS permission denied !");
                     // So re requesting the permission
-                    makeToast("Veuillez autoriser le SMS permission.\nSinon Slooz ne fonctionnera pas.");
+                    //makeToast("Veuillez autoriser le SMS permission.\nSinon Slooz ne fonctionnera pas.");
+
+                    View view = findViewById(R.id.activity_main_frame_layout);
+                    String message = "Veuillez autoriser le SMS permission.\nSinon Slooz ne fonctionnera pas.";
+                    String btn = "Autoriser";
+                    int duration = 10000; // 10 seconds
+                    makeSanckbar(view, message, btn, duration);
+
                 }
         }
     }
@@ -379,5 +386,23 @@ public class MainActivity extends AppCompatActivity {
     public void makeToast(String message)
     {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+    }
+
+    // Snackbar maker
+    public void makeSanckbar(View view, String message, String btn, int duration)
+    {
+        // Create snackbar
+        final Snackbar snackbar = Snackbar.make(view, message, duration);
+
+        // Set an action on it, and a handler
+        snackbar.setAction(btn, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+               // Lien vers paramètre pour les permissions
+            }
+        });
+
+        snackbar.show();
     }
 }
