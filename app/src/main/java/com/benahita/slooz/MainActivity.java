@@ -177,6 +177,22 @@ public class MainActivity extends AppCompatActivity {
         Log.d("mNotif", "On Resume !");
 
         delNotif = true;
+
+        // pour les versions V 6.0 et plus, // Pour les V 5.x midina permissions auto accordées
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            // Check permission for SMS
+            if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECEIVE_SMS)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                // Requesting the permission
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[] { Manifest.permission.RECEIVE_SMS },
+                        RECEIVE_SMS_CODE);
+            }
+
+            // Check always on top permission
+            checkAlwaysOnTopPermission();
+        }
     }
 
     private void showSnackbar(View view, String message, int duration)
