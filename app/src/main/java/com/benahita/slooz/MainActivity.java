@@ -206,7 +206,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 isMeilleur = true;
                 snackbar.dismiss();
-                finish(); // CLOSE SLOOZ In fact, run this app in background
+                finish(); // CLOSE SLOOZ
+                overridePendingTransition(0, 0);
             }
         });
 
