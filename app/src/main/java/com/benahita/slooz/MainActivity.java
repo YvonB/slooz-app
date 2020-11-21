@@ -270,14 +270,13 @@ public class MainActivity extends AppCompatActivity {
                 {
                     Log.d("Permission", "SMS permission denied !");
                     // So re requesting the permission
-                    //makeToast("Veuillez autoriser le SMS permission.\nSinon Slooz ne fonctionnera pas.");
 
-                    View view = findViewById(R.id.activity_main_frame_layout);
+                    // Util lorsque l'user clique sur Denied et don't ask again
+                    /*View view = findViewById(R.id.activity_main_frame_layout);
                     String message = "Veuillez autoriser le SMS permission.\nSinon Slooz ne fonctionnera pas.";
                     String btn = "Autoriser";
                     int duration = 10000; // 10 seconds
-                    makeSanckbar(view, message, btn, duration);
-
+                    makeSanckbar(view, message, btn, duration);*/
                 }
         }
     }
