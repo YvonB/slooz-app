@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     Log.d("Permission", "SMS permission denied !");
                     // So re requesting the permission
-                    makeToast("Slooz ne fonctionnera pas sans cette permission");
+                    makeToast("Veuillez autoriser le SMS permission.\nSinon Slooz ne fonctionnera pas.");
                 }
         }
     }
