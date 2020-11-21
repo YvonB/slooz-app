@@ -53,12 +53,10 @@ public class MainActivity extends AppCompatActivity {
     // but unique for each permission.
     private static final int RECEIVE_SMS_CODE = 100;
 
-    // Btn close
-    //private TextView mCloseBtn;
-
     // Tools for clear notification
     private boolean delNotif = false;
 
+    // Tools for vous êtes le meilleur toast
     private boolean isMeilleur = false;
 
     @Override
@@ -270,13 +268,6 @@ public class MainActivity extends AppCompatActivity {
                 {
                     Log.d("Permission", "SMS permission denied !");
                     // So re requesting the permission
-
-                    // Util lorsque l'user clique sur Denied et don't ask again
-                    /*View view = findViewById(R.id.activity_main_frame_layout);
-                    String message = "Veuillez autoriser le SMS permission.\nSinon Slooz ne fonctionnera pas.";
-                    String btn = "Autoriser";
-                    int duration = 10000; // 10 seconds
-                    makeSanckbar(view, message, btn, duration);*/
                 }
         }
     }
