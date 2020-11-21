@@ -101,7 +101,7 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
                             builder.setSmallIcon(R.drawable.ic_twotone_perm_phone_msg_24);
                             builder.setContentTitle(notif_e_recharge);
                             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(messageIntegral));
-                            builder.addAction(R.drawable.ic_launcher_background, "Sloozer",
+                            builder.addAction(R.mipmap.ic_launcher_round, "Sloozer",
                                     snoozPendingIntent); // lorsque l'utilisateur tapera sur le btn snoozer
 
                             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
@@ -134,7 +134,7 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
                             builder.setContentTitle(messageTitle);
                             builder.setContentText(messageContentExtrait);
                             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(messageIntegral));
-                            builder.addAction(R.drawable.ic_launcher_background, "Sloozer",
+                            builder.addAction(R.mipmap.ic_launcher_round, "Sloozer",
                                     snoozPendingIntent); // lorsque l'utilisateur tapera sur le btn snoozer
 
                             builder.setContentIntent(snoozPendingIntent); // == 10
