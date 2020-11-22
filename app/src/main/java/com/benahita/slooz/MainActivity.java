@@ -314,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
                     View view = findViewById(R.id.activity_main_frame_layout);
                     String message = "Slooz ne fonctionnera pas sans cette authorisation";
                     String btn = "Paramètres";
-                    int duration = 8000;
+                    int duration = 5000;
 
                     makeSanckbar(view, message, btn, duration);
                 }
@@ -413,19 +413,23 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i("MainActivity", "On destroy called");
 
-        // For service
-        MyService mMyService = new MyService(getApplicationContext());
-        Intent mServiceIntent = new Intent(getApplicationContext(), mMyService.getClass());
+        // Alarm for restart service
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECEIVE_SMS)
+                == PackageManager.PERMISSION_GRANTED) {
+            MyService mMyService = new MyService(getApplicationContext());
+            //Intent mServiceIntent = new Intent(getApplicationContext(), mMyService.getClass());
 
-        if (!isMyServiceRunning(mMyService.getClass())) {
+            if (!isMyServiceRunning(mMyService.getClass())) {
 
-            Log.i("isMyServiceRunning ?", "App closed, service has died, Start the service in 1... 2...3... ");
+                Log.i("isMyServiceRunning ?", "App closed, service has died, Start the service in 1... 2...3... ");
 
-            Intent restartServiceIntent = new Intent(getApplicationContext(), MyService.class);
-            PendingIntent restartServicePendingIntent = PendingIntent.getService(this, 1, restartServiceIntent, PendingIntent.FLAG_ONE_SHOT);
-            getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-            AlarmManager alarmService = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-            alarmService.set(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + 1000, restartServicePendingIntent);
+                Intent restartServiceIntent = new Intent(getApplicationContext(), MyService.class);
+                PendingIntent restartServicePendingIntent = PendingIntent.getService(this, 1, restartServiceIntent, PendingIntent.FLAG_ONE_SHOT);
+                getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+                AlarmManager alarmService = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+                alarmService.set(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + 1000, restartServicePendingIntent);
+        }
+
         }else{
             // Doing nothing, because service is already runnig !
             Log.i("isMyServiceRunning ?", "App closed but our service still runnig");
@@ -434,7 +438,8 @@ public class MainActivity extends AppCompatActivity {
         // clear Notif raha efa nisokatra le app (premier plan == onResum called)
         if(delNotif){clearSmsCreditNotification();}
 
-        if(isMeilleur){makeToast("Merci, vous êtes le meilleur !");}
+        if(isMeilleur && (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECEIVE_SMS)
+                == PackageManager.PERMISSION_GRANTED)){makeToast("Merci, vous êtes le meilleur !");}
 
         super.onDestroy();
     }
