@@ -166,8 +166,26 @@ public class MainActivity extends AppCompatActivity {
                         Uri.parse("package:" + getPackageName()));
                 startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE);
 
-                makeToast("Veuillez autoriser");
+                makeToast("Ce serai plus fun que vous accepter cette authorisation");
             }
+        }
+    }
+
+    // Check Overlay permission for the result
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (Settings.canDrawOverlays(this)) {
+                    // permission granted...
+                    Log.d("DrawOverApps", "permission granted");
+                } else {
+                    // permission not granted...
+                    Log.d("DrawOverApps", "permission not granted");
+                }
+            }
+        }else{
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -179,11 +197,11 @@ public class MainActivity extends AppCompatActivity {
         delNotif = true;
 
         // pour les versions V 6.0 et plus, // Pour les V 5.x midina permissions auto accordées
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             // Check permission for SMS
             if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECEIVE_SMS)
                     != PackageManager.PERMISSION_GRANTED) {
-
+                makeToast("Cette authorisation est capitale pour Slooz, veuillez accepter s'il vous plait");
                 // Requesting the permission
                 ActivityCompat.requestPermissions(MainActivity.this,
                         new String[] { Manifest.permission.RECEIVE_SMS },
@@ -191,9 +209,31 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // Check always on top permission
-            checkAlwaysOnTopPermission();
-        }
+            //checkAlwaysOnTopPermission();
+        }*/
     }
+
+    /*
+    @Override
+    protected void onRestart() {
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            // Check permission for SMS
+            if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECEIVE_SMS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                //makeToast("Cette authorisation est capitale pour Slooz, veuillez accepter s'il vous plait");
+                // Requesting the permission
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[] { Manifest.permission.RECEIVE_SMS },
+                        RECEIVE_SMS_CODE);
+            }
+
+            // Check always on top permission
+            //checkAlwaysOnTopPermission();
+        }
+
+        super.onRestart();
+    } */
 
     private void showSnackbar(View view, String message, int duration)
     {
@@ -268,7 +308,15 @@ public class MainActivity extends AppCompatActivity {
             else
                 {
                     Log.d("Permission", "SMS permission denied !");
-                    // So re requesting the permission
+
+                    // Explain to the user that the feature is unavailable because
+                    // the features requires a permission that the user has denied
+                    View view = findViewById(R.id.activity_main_frame_layout);
+                    String message = "Slooz ne fonctionnera pas sans cette authorisation";
+                    String btn = "Paramètres";
+                    int duration = 8000;
+
+                    makeSanckbar(view, message, btn, duration);
                 }
         }
     }
