@@ -34,7 +34,7 @@
     <!-- Rdv au Telma-->
     <color name="btn_telma">#006400</color>
      <!-- Contours -->
-    <color name="contour">#fff</color>
+    <color name="contour">#2F4F4F</color>
 
     <!-- Contours Telma-->
     <color name="contour_telma">#006400</color>
