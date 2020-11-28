@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 1001;
 
     //Page indicator du slider
-    LinearLayout sliderDotspanel;
+    //LinearLayout sliderDotspanel;
     private int dotscount;
     private ImageView[] dots;
 
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Btn close
-        TextView mCloseBtn = (TextView) findViewById(R.id.activity_main_close_btn);
+        //TextView mCloseBtn = (TextView) findViewById(R.id.activity_main_close_btn);
 
         // Slogan mi derive tena
         final TextView sloganAppTopTv = (TextView) findViewById(R.id.slogan_app_top_activity_main);
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.activity_main_viewpager);
         viewPager.setAdapter(new CustomPagerAdapter(getSupportFragmentManager()));
 
-        sliderDotspanel = (LinearLayout) findViewById(R.id.activity_main_slider_dots); // Les dots
+        //sliderDotspanel = (LinearLayout) findViewById(R.id.activity_main_slider_dots); // Les dots
         dotscount = new CustomPagerAdapter(getSupportFragmentManager()).getCount();
 
         dots = new ImageView[dotscount];
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
             params.setMargins(8, 0, 8, 0);
 
-            sliderDotspanel.addView(dots[i], params);
+            //sliderDotspanel.addView(dots[i], params);
 
         }
 
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         // ================================Fin slide ================================
 
         // Click on close
-        mCloseBtn.setOnClickListener( new View.OnClickListener(){
+        /*mCloseBtn.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 View view = findViewById(R.id.activity_main_frame_layout);
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
                 showSnackbar(view, message, duration);
             }
-        });
+        });*/
 
     }
 
@@ -326,8 +326,15 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed()
     {
         // 1. Trigger close btn click
-        TextView mCloseBtn = (TextView) findViewById(R.id.activity_main_close_btn);
-        mCloseBtn.performClick();
+        //TextView mCloseBtn = (TextView) findViewById(R.id.activity_main_close_btn);
+        //mCloseBtn.performClick();
+
+        // provisoir
+        View view = findViewById(R.id.activity_main_frame_layout);
+        String message = "Quiter ?";
+        int duration = Snackbar.LENGTH_SHORT;
+
+        showSnackbar(view, message, duration);
 
         // 2. clear credit's sms notification
         clearSmsCreditNotification();
