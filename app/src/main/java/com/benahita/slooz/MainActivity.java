@@ -312,9 +312,9 @@ public class MainActivity extends AppCompatActivity {
                     // Explain to the user that the feature is unavailable because
                     // the features requires a permission that the user has denied
                     View view = findViewById(R.id.activity_main_frame_layout);
-                    String message = "Slooz ne fonctionnera pas sans cette authorisation";
+                    String message = "Slooz ne fonctionnera pas sans cette authorisation SMS";
                     String btn = "Paramètres";
-                    int duration = 5000;
+                    int duration = 8000;
 
                     makeSanckbar(view, message, btn, duration);
                 }
@@ -469,6 +469,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 snackbar.dismiss();
                // Lien vers paramètre pour les permissions
+                startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                        Uri.fromParts("package", getPackageName(), null)));
             }
         });
 
