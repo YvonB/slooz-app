@@ -25,6 +25,7 @@
         android:textColorHint="@android:color/white"
         android:textColor="@android:color/white"
         app:backgroundTint="@color/transparent"
+        android:inputType="textPersonName"
         android:textSize="12sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="48pt"/>
