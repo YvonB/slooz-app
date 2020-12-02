@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
             if((String.valueOf(launchIntent.getAction()).equals("android.intent.action.MAIN"))){makeToast("Content de vous revoir");};
         }
 
+        checkFirstLogin();
+        prepareForm();
         // Btn close
         //TextView mCloseBtn = (TextView) findViewById(R.id.activity_main_close_btn);
 
@@ -162,6 +164,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
+    }
+
+    private void prepareForm() {
+        SharedPreferences preferences = getSharedPreferences("myprefs",MODE_PRIVATE);
+        EditText etUserName=(EditText)findViewById(R.id.activity_main_sloozer_name);
+
+        // If value for key not exist then return second param value - In this case "..."
+        etUserName.setText(preferences.getString("username", "..."));
+    }
+
+    private void checkFirstLogin() {
+        SharedPreferences preferences = getSharedPreferences("myprefs",MODE_PRIVATE);
+        // If value for key not exist then return second param value - In this case true
+        if (preferences.getBoolean("firstLogin", true)) {
+            initProfile();
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("firstLogin", false);
+            editor.commit();
+        }
+    }
+
+    private void initProfile() {
+        SharedPreferences preferences = getSharedPreferences("myprefs",MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("username","Votre Pseudo");
+        editor.commit();
     }
 
     private TextView.OnEditorActionListener editorActionListener = new TextView.OnEditorActionListener() {
