@@ -29,8 +29,11 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -84,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Btn close
         //TextView mCloseBtn = (TextView) findViewById(R.id.activity_main_close_btn);
+
+        EditText sloozerName = findViewById(R.id.activity_main_sloozer_name);
+        sloozerName.setOnEditorActionListener(editorActionListener);
 
         // Slogan mi derive tena
         final TextView sloganAppTopTv = (TextView) findViewById(R.id.slogan_app_top_activity_main);
@@ -157,6 +163,18 @@ public class MainActivity extends AppCompatActivity {
         });*/
 
     }
+
+    private TextView.OnEditorActionListener editorActionListener = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            if(actionId == (EditorInfo.IME_ACTION_DONE)){
+                Log.d("ActionListner", "Let's save this pseudo");
+
+                // Let's save this pseudo
+            }
+            return false;
+        }
+    };
 
     private void checkAlwaysOnTopPermission()
     {
