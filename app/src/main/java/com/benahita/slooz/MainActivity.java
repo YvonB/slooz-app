@@ -23,11 +23,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.provider.Settings;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -41,10 +44,15 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int NOTIFICATION_ID = 2; //credit's sms notification ID
     private static final int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 1001;
+    private static final int ACTION_SELECT_IMAGE_FROM_GALLERY = 1002;
 
     //Page indicator du slider
     //LinearLayout sliderDotspanel;
@@ -84,6 +92,15 @@ public class MainActivity extends AppCompatActivity {
             Log.d("ACTION_LAUNCHER", String.valueOf(launchIntent.getAction()));
             if((String.valueOf(launchIntent.getAction()).equals("android.intent.action.MAIN"))){makeToast("Content de vous revoir");};
         }
+
+        ImageView sloozUserPic = findViewById(R.id.activity_main_sloozer_pic);
+        sloozUserPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto , ACTION_SELECT_IMAGE_FROM_GALLERY);//one can be replaced with any action code
+            }
+        });
 
         checkFirstLogin();
         prepareForm();
@@ -168,10 +185,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void prepareForm() {
         SharedPreferences preferences = getSharedPreferences("myprefs",MODE_PRIVATE);
+        ImageView etUserPic=(ImageView) findViewById(R.id.activity_main_sloozer_pic);
         EditText etUserName=(EditText)findViewById(R.id.activity_main_sloozer_name);
 
         // If value for key not exist then return second param value - In this case "..."
+        String img_str = preferences.getString("userphoto", "");
         etUserName.setText(preferences.getString("username", "..."));
+
+        if (!img_str.equals("")){
+            //decode string to image
+            byte[] imageAsBytes = Base64.decode(img_str.getBytes(), Base64.DEFAULT);                   etUserPic.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0,             imageAsBytes.length) );
+        }
     }
 
     private void checkFirstLogin() {
@@ -241,6 +265,47 @@ public class MainActivity extends AppCompatActivity {
         }else{
             super.onActivityResult(requestCode, resultCode, data);
         }
+
+        ImageView sloozUserPic = findViewById(R.id.activity_main_sloozer_pic);
+
+        if(requestCode == ACTION_SELECT_IMAGE_FROM_GALLERY){
+            if (resultCode == RESULT_OK) {
+                try {
+                    final Uri imageUri = data.getData();
+                    assert imageUri != null;
+                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                    final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    sloozUserPic.setImageBitmap(selectedImage);
+
+                    // convert image to string for save it to Shared Prefernces
+                    sloozUserPic.buildDrawingCache();
+                    Bitmap bitmap = sloozUserPic.getDrawingCache();
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
+                    byte[] image = stream.toByteArray();
+                    String base = Base64.encodeToString(image, Base64.DEFAULT);//decode string to image
+                    byte[] imageAsBytes = Base64.decode(base.getBytes(), Base64.DEFAULT);
+                    sloozUserPic.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes,0, imageAsBytes.length));
+
+
+                    //save in sharedpreferences
+                    SharedPreferences preferences = getSharedPreferences("myprefs",MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("userphoto", base);
+                    editor.commit();
+
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    makeToast("Quelque chose a mal tourné");
+                }
+
+            }else {
+                makeToast("Vous n'avez pas choisi une Image");
+                super.onActivityResult(requestCode, resultCode, data);
+            }
+        }
+
     }
 
     @Override
