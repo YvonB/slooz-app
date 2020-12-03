@@ -8,14 +8,16 @@
     android:background="@color/black_overlay"
     android:id="@+id/activity_main_frame_layout">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/activity_main_sloozer_pic"
         android:layout_width="30pt"
         android:layout_height="30pt"
         android:src="@drawable/ic_baseline_account_circle_24"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15pt"
-        android:contentDescription="TODO" />
+        android:contentDescription="TODO"
+        app:civ_border_width="3dp"
+        app:civ_border_color="@color/algofy"/>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/activity_main_sloozer_name"
