@@ -198,7 +198,15 @@ public class MainActivity extends AppCompatActivity {
             if(actionId == (EditorInfo.IME_ACTION_DONE)){
                 Log.d("ActionListner", "Let's save this pseudo");
 
+                // récupération
+                EditText mSloozerName = (EditText)findViewById(R.id.activity_main_sloozer_name);
+                String mSloozerNameValue = mSloozerName.getText().toString();
+
                 // Let's save this pseudo
+                SharedPreferences preferences = getSharedPreferences("myprefs",MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("username",mSloozerNameValue);
+                editor.commit();
             }
             return false;
         }
