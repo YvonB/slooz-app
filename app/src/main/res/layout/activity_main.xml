@@ -21,11 +21,11 @@
         android:id="@+id/activity_main_sloozer_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Votre Pseudo"
         android:textColorHint="@android:color/white"
         android:textColor="@android:color/white"
         app:backgroundTint="@color/transparent"
         android:inputType="textPersonName"
+        android:gravity="center"
         android:textSize="12sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="48pt"/>
