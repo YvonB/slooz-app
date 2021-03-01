@@ -32,16 +32,28 @@
     <color name="btn_20">#006400</color>
 
     <!-- Rdv au Telma-->
-    <color name="btn_telma">#006400</color>
+    <!--color name="btn_telma">#006400</color-->
+
+    <!-- Couleur mahomby-->
+    <color name="btn_telma">#FAFAFA</color>
+
      <!-- Contours -->
-    <color name="contour">#2F4F4F</color>
+    <!--color name="contour">#2F4F4F</color-->
+
+    <!-- Contours Mahomby-->
+    <color name="contour">#FAFAFA</color>
 
     <!-- Contours Telma-->
-    <color name="contour_telma">#006400</color>
+    <!--color name="contour_telma">#006400</color-->
+
+    <!-- Contours Telma Mahomby-->
+    <color name="contour_telma">#FAFAFA</color>
 
     <color name="main_bg">#802F4F4F</color>
 
     <color name="algofy">#2F4F4F</color>
 
     <color name="transparent">#00000000</color>
+
+    <color name="noir">#000000</color>
 </resources>
