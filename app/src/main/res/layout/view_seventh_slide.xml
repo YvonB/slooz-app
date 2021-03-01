@@ -74,7 +74,7 @@
         android:layout_gravity="center"
         android:layout_marginRight="8dp"
         android:layout_weight="1"
-        android:textColor="@color/noir"
+        android:textColor="@android:color/white"
         android:text="@string/mon_taxi"
         tools:ignore="Suspicious0dp"
         android:textAlignment="center"
