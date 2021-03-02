@@ -26,9 +26,9 @@ import java.util.Objects;
  * Created by yvon on 6/23/20.
  */
 public class ChildFragment5 extends Fragment {
-    public final static String AKAMA_1 = "222*1";
-    public final static String AKAMA_3 = "222*3";
-    public final static String AKAMA_7 = "222*7";
+    public final static String AKAMA_GO = "222*1";
+    public final static String AKAMA_UP = "222*33";
+    public final static String AKAMA_PLUS = "222*7";
     public final static String BE_500 = "224*1*1";
     public final static String BE_1000 = "224*1*2";
 
@@ -43,23 +43,22 @@ public class ChildFragment5 extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+Uri.encode(AKAMA_1)));
+                intent.setData(Uri.parse("tel:"+Uri.encode(AKAMA_GO)));
                 startActivity(intent);
             }
         });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            buttonInFragment1.setTooltipText("Prix :100Ar, 20Mo, Validité:24heures\n" +
+            buttonInFragment1.setTooltipText("Prix :100Ar, 20Mo et/ou 20SMS, Validité:24heures\n" +
                     "Facebook, Messenger \n" +
-                    "5min d’appel vers 3numéros famille de 21h à 6h");
+                    "5min d’appel vers les numéros famille de 21h à 6h");
         }else{
             buttonInFragment1.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    TooltipCompat.setTooltipText(v, "Prix :100Ar, 20Mo, Validité:24heures\n" +
+                    TooltipCompat.setTooltipText(v, "Prix :100Ar, 20Mo et/ou 20SMS, Validité:24heures\n" +
                             "Facebook, Messenger\n" +
-                            "30mn d’appel vers 3numéros famille de 21h à 6h\n" +
-                            "5min d’appel vers 3numéros famille de 21h à 6h");
+                            "5min d’appel vers les numéros famille de 21h à 6h");
 
                     return false;
                 }
@@ -72,7 +71,7 @@ public class ChildFragment5 extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+Uri.encode(AKAMA_3)));
+                intent.setData(Uri.parse("tel:"+Uri.encode(AKAMA_UP)));
                 startActivity(intent);
             }
         });
@@ -82,7 +81,7 @@ public class ChildFragment5 extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+Uri.encode(AKAMA_7)));
+                intent.setData(Uri.parse("tel:"+Uri.encode(AKAMA_PLUS)));
                 startActivity(intent);
             }
         });

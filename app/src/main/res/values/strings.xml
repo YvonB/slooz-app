@@ -6,9 +6,9 @@
     <string name="first" />
     <string name="second" />
 
-    <string name="akama_un">Akama\n1</string>
-    <string name="akama_trois">Akama\n3</string>
-    <string name="akama_sept">Akama\n7</string>
+    <string name="akama_go">Akama\ngo</string>
+    <string name="akama_up">Akama\nup</string>
+    <string name="akama_plus">Akama\nplus</string>
     <string name="be_500">Be\n500</string>
     <string name="be_1000">Be\n1000</string>
 
